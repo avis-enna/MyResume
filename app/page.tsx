@@ -13,7 +13,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ChatBot from "./components/ChatBot";
-import InteractiveTerminal from "./components/InteractiveTerminal";
+import DesktopApp from "./components/DesktopApp";
 
 export default function Home() {
   const [isV2UI, setIsV2UI] = useState(false);
@@ -50,10 +50,10 @@ export default function Home() {
     );
   }
 
-  // V2 UI - Terminal design
+  // V2 UI - Desktop Environment
   return (
     <div className="relative">
-      <InteractiveTerminal onToggleUI={toggleUI} />
+      <DesktopApp onToggleUI={toggleUI} />
     </div>
   );
 }

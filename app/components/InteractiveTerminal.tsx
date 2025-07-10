@@ -28,10 +28,12 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
   const [isInputFocused, setIsInputFocused] = useState(true);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
   const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [activeFocusTarget, setActiveFocusTarget] = useState<'main' | string>('main'); // 'main' or sectionId
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalOutputRef = useRef<HTMLDivElement>(null);
   const welcomeInitialized = useRef(false);
+  const miniTerminalRefs = useRef<Record<string, HTMLInputElement | null>>({});
 
   // Mini-terminal state for each section
   const [miniTerminals, setMiniTerminals] = useState<Record<string, {
@@ -51,10 +53,23 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
     const terminal = miniTerminals[sectionId];
     
     return (
-      <div className="mt-6 border border-green-400/30 rounded bg-black/40 mini-terminal-container">
+      <div 
+        className="mt-6 border border-green-400/30 rounded bg-black/40 mini-terminal-container"
+        onClick={() => {
+          setActiveFocusTarget(sectionId);
+          setMiniTerminalActive(sectionId, true);
+          setTimeout(() => {
+            if (miniTerminalRefs.current[sectionId]) {
+              miniTerminalRefs.current[sectionId]?.focus();
+            }
+          }, 10);
+        }}
+      >
         <div className="flex items-center justify-between p-2 border-b border-green-400/20 bg-green-400/5">
           <div className="text-green-300/80 text-xs font-mono">💻 {title}</div>
-          <div className="text-green-400/40 text-xs">interactive</div>
+          <div className="text-green-400/40 text-xs">
+            {terminal.isActive ? 'active' : 'interactive'}
+          </div>
         </div>
         
         {/* Terminal Output */}
@@ -71,42 +86,58 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
         {/* Command Input */}
         <div 
           className="flex items-center p-2 border-t border-green-400/20"
-          onClick={(e) => e.stopPropagation()}
-          onMouseDown={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            e.stopPropagation();
+            setActiveFocusTarget(sectionId);
+            setMiniTerminalActive(sectionId, true);
+            setTimeout(() => {
+              if (miniTerminalRefs.current[sectionId]) {
+                miniTerminalRefs.current[sectionId]?.focus();
+              }
+            }, 10);
+          }}
         >
           <span className="text-green-400 text-xs font-mono mr-2">$</span>
           <input
+            ref={(el) => {
+              miniTerminalRefs.current[sectionId] = el;
+            }}
             type="text"
             value={terminal.input}
-            onChange={(e) => updateMiniTerminalInput(sectionId, e.target.value)}
+            className={`flex-1 bg-transparent text-green-400 text-xs font-mono outline-none mini-terminal-input border border-green-400/20 rounded px-1 ${
+              terminal.isActive ? 'opacity-100 border-green-400/50' : 'opacity-70'
+            }`}
+            placeholder={terminal.isActive ? "Type command..." : "Click to activate"}
+            onChange={(e) => {
+              console.log('Mini terminal input change:', sectionId, e.target.value);
+              updateMiniTerminalInput(sectionId, e.target.value);
+            }}
             onKeyDown={(e) => {
-              e.stopPropagation(); // Prevent event bubbling
+              console.log('Mini terminal key down:', sectionId, e.key);
+              e.stopPropagation();
               if (e.key === 'Enter') {
                 handleMiniTerminalCommand(sectionId, terminal.input);
               }
             }}
             onFocus={() => {
+              console.log('Mini terminal focused:', sectionId);
+              setActiveFocusTarget(sectionId);
               setMiniTerminalActive(sectionId, true);
             }}
             onBlur={() => {
-              // Small delay to prevent rapid focus changes during window interactions
+              console.log('Mini terminal blurred:', sectionId);
               setTimeout(() => {
-                // Only set inactive if this input is actually not focused anymore
-                if (document.activeElement?.classList.contains('mini-terminal-input')) {
-                  return; // Another mini-terminal is focused, keep one active
+                const activeElement = document.activeElement as HTMLElement;
+                if (!activeElement?.classList.contains('mini-terminal-input')) {
+                  setMiniTerminalActive(sectionId, false);
+                  if (activeFocusTarget === sectionId) {
+                    setActiveFocusTarget('main');
+                  }
                 }
-                setMiniTerminalActive(sectionId, false);
               }, 50);
             }}
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent window dragging
-              e.currentTarget.focus(); // Ensure focus
-            }}
-            onMouseDown={(e) => e.stopPropagation()} // Prevent dragging interference
-            className="flex-1 bg-transparent text-green-400 text-xs outline-none font-mono placeholder-green-400/40 mini-terminal-input border border-green-400/20 rounded px-1"
-            placeholder="type help..."
             autoComplete="off"
-            spellCheck={false}
+            spellCheck="false"
           />
         </div>
       </div>
@@ -475,53 +506,61 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
     };
   }, []);
 
-  // Keep input focused - but respect mini-terminal focus
+  // Smart focus management - respects activeFocusTarget
   useEffect(() => {
-    const focusInput = () => {
-      if (inputRef.current) {
-        inputRef.current.focus();
+    const focusCorrectInput = () => {
+      if (activeFocusTarget === 'main') {
+        // Focus main terminal
+        if (inputRef.current && document.activeElement !== inputRef.current) {
+          inputRef.current.focus();
+        }
+      } else {
+        // Focus specific mini-terminal
+        const targetInput = miniTerminalRefs.current[activeFocusTarget];
+        if (targetInput && document.activeElement !== targetInput) {
+          targetInput.focus();
+        }
       }
     };
     
     // Initial focus
-    focusInput();
+    focusCorrectInput();
     
-    // Set up an interval to check and restore focus if needed
+    // Less aggressive focus checking - only when no input is focused
     const focusInterval = setInterval(() => {
       const activeElement = document.activeElement as HTMLElement;
-      const isMiniTerminalFocused = activeElement?.classList.contains('mini-terminal-input');
-      const isAnyMiniTerminalActive = Object.values(miniTerminals).some(terminal => terminal.isActive);
+      const isAnyInputFocused = 
+        activeElement === inputRef.current || 
+        activeElement?.classList.contains('mini-terminal-input');
       
-      // NEVER steal focus if any mini-terminal is active or focused
-      if (isMiniTerminalFocused || isAnyMiniTerminalActive) {
-        return; // Exit early, don't focus main terminal
+      // Only refocus if no input is currently focused
+      if (!isAnyInputFocused) {
+        focusCorrectInput();
       }
-      
-      // Only focus main input if no element is focused
-      if (document.activeElement === document.body || document.activeElement === null) {
-        focusInput();
-      }
-    }, 2000); // Increased interval to be less aggressive
+    }, 3000); // Much less aggressive interval
     
     return () => clearInterval(focusInterval);
-  }, [miniTerminals]);
+  }, [activeFocusTarget]);
 
-  // Global keydown handler - disabled when mini-terminals are active
+  // Global keydown handler - respects activeFocusTarget
   useEffect(() => {
     const handleGlobalKeydown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
       const isMiniTerminalInput = target.classList.contains('mini-terminal-input');
-      const isAnyMiniTerminalActive = Object.values(miniTerminals).some(terminal => terminal.isActive);
       
-      // COMPLETELY IGNORE global handlers if mini-terminal is active
-      if (isMiniTerminalInput || isAnyMiniTerminalActive) {
-        return; // Don't interfere with mini-terminal at all
+      console.log('Global keydown:', e.key, 'activeFocusTarget:', activeFocusTarget, 'isMiniTerminalInput:', isMiniTerminalInput);
+      
+      // Don't interfere if a mini-terminal is active
+      if (activeFocusTarget !== 'main' || isMiniTerminalInput) {
+        console.log('Ignoring global keydown for mini-terminal');
+        return;
       }
       
-      // Only handle specific keys when main input isn't focused and not in mini-terminal
+      // Only handle global keys for main terminal
       if (document.activeElement !== inputRef.current) {
         if (e.key === 'Enter' || e.key === 'Escape') {
           e.preventDefault();
+          setActiveFocusTarget('main');
           if (inputRef.current) {
             inputRef.current.focus();
           }
@@ -1043,7 +1082,26 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
         {/* Main Terminal Content */}
         <div 
           className="flex-1 p-6" 
-          onClick={handleTerminalClick}
+          onClick={(e) => {
+            // Check if click is outside of mini-terminals
+            const target = e.target as HTMLElement;
+            if (!target.closest('.mini-terminal-container')) {
+              setActiveFocusTarget('main');
+              // Clear all mini-terminal active states
+              setMiniTerminals(prev => {
+                const updated = { ...prev };
+                Object.keys(updated).forEach(key => {
+                  updated[key] = { ...updated[key], isActive: false };
+                });
+                return updated;
+              });
+              setTimeout(() => {
+                if (inputRef.current) {
+                  inputRef.current.focus();
+                }
+              }, 10);
+            }
+          }}
         >
           <div className="h-full max-w-6xl mx-auto flex flex-col">
             {/* Welcome Animation */}
@@ -1155,6 +1213,18 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
                 onKeyDown={handleKeyDown}
                 onFocus={() => {
                   setIsInputFocused(true);
+                  setActiveFocusTarget('main');
+                }}
+                onClick={() => {
+                  setActiveFocusTarget('main');
+                  // Clear all mini-terminal active states
+                  setMiniTerminals(prev => {
+                    const updated = { ...prev };
+                    Object.keys(updated).forEach(key => {
+                      updated[key] = { ...updated[key], isActive: false };
+                    });
+                    return updated;
+                  });
                 }}
                 onBlur={() => {
                   // Small delay to allow for clicks on other elements
