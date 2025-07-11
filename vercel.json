@@ -1,16 +1,8 @@
 {
-  "name": "siva-portfolio-v3",
+  "name": "portfolio-website",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "outputDirectory": ".next",
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
-    }
-  }
+  "outputDirectory": ".next"
 }

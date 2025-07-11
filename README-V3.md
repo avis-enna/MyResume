@@ -4,8 +4,10 @@ A revolutionary portfolio experience that combines a desktop-like interface with
 
 ## 🚀 Live Deployments
 
-- **GitHub Pages**: [https://ssivared.github.io/MyResume](https://ssivared.github.io/MyResume)
-- **Vercel**: [https://siva-portfolio-v3.vercel.app](https://siva-portfolio-v3.vercel.app)
+- **GitHub Pages (V3)**: [https://ssivared.github.io/MyResume](https://ssivared.github.io/MyResume) - Desktop Terminal Interface
+- **Vercel (Main)**: [https://portfolio-website.vercel.app](https://portfolio-website.vercel.app) - Original Portfolio
+
+> **Note**: V3 branch is specifically designed for GitHub Pages deployment with the new desktop terminal interface. The main branch continues to be used for Vercel deployment with the original portfolio design.
 
 ## ✨ V3 Features
 
@@ -81,7 +83,7 @@ help              # Show all commands
 
 ## 🚀 Deployment
 
-### GitHub Pages Setup
+### GitHub Pages Setup (V3 Branch)
 ```bash
 # Switch to V3 branch
 git checkout V3
@@ -90,10 +92,8 @@ git checkout V3
 git push origin V3
 ```
 
-### Vercel Setup
-1. Connect GitHub repository to Vercel
-2. Select V3 branch for deployment
-3. Deploy automatically on push
+### Vercel Setup (Main Branch)
+The main branch continues to be used for Vercel deployment with the original portfolio design.
 
 ### Local Development
 ```bash
