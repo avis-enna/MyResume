@@ -19,11 +19,19 @@ import NewDesignLayout from "./new_design/NewDesignLayout";
 
 export default function Home() {
   const [currentUI, setCurrentUI] = useState<'new' | 'v1' | 'v2'>('new');
-  const [isMobile, setIsMobile] = useState<boolean | null>(null); // null initially to prevent race condition
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Ensure component is mounted (client-side only)
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Detect mobile device and screen size
   useEffect(() => {
+    if (!isMounted) return;
+    
     const checkMobile = () => {
       const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       const isSmallScreen = window.innerWidth < 768; // Less than md breakpoint
@@ -49,7 +57,7 @@ export default function Home() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, [isInitialized]);
+  }, [isMounted, isInitialized]);
 
   const toggleUI = () => {
     // Prevent UI switching on mobile or if mobile detection is not complete
@@ -67,15 +75,12 @@ export default function Home() {
   };
 
   // Show loading state while detecting mobile
-  if (isMobile === null || !isInitialized) {
+  if (!isMounted || isMobile === null || !isInitialized) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="text-xl font-light text-gray-600">SVR.</div>
-          <div className="text-sm text-gray-400 mt-2">Detecting device...</div>
-          <div className="text-xs text-gray-300 mt-1">
-            {typeof window !== 'undefined' ? `Screen: ${window.innerWidth}px` : 'Initializing...'}
-          </div>
+          <div className="text-sm text-gray-400 mt-2">Loading...</div>
         </div>
       </div>
     );

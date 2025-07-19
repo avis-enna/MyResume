@@ -11,8 +11,12 @@ const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined
 
 export function DarkModeProvider({ children }: { children: React.ReactNode }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
+    // Mark as hydrated and then check preferences
+    setIsHydrated(true);
+    
     // Check for saved preference or system preference
     const savedMode = localStorage.getItem('darkMode');
     if (savedMode) {
@@ -23,6 +27,9 @@ export function DarkModeProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
+    // Only run after hydration to prevent localStorage issues
+    if (!isHydrated) return;
+    
     // Save preference to localStorage
     localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
     
@@ -32,7 +39,7 @@ export function DarkModeProvider({ children }: { children: React.ReactNode }) {
     } else {
       document.documentElement.classList.remove('dark');
     }
-  }, [isDarkMode]);
+  }, [isDarkMode, isHydrated]);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
