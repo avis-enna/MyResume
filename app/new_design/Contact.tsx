@@ -25,27 +25,27 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className={`min-h-screen py-20 transition-colors duration-300 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
-      <div className="container mx-auto px-6">
+    <section id="contact" className={`min-h-screen py-12 sm:py-16 md:py-20 transition-colors duration-300 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className={`text-5xl font-thin mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>contact</h2>
-            <div className={`w-16 h-px mx-auto transition-colors duration-300 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className={`text-3xl sm:text-4xl md:text-5xl font-thin mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>contact</h2>
+            <div className={`w-12 sm:w-16 h-px mx-auto transition-colors duration-300 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16">
             {/* Contact Information */}
             <div>
-              <h3 className={`text-2xl font-light mb-8 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Let's work together</h3>
-              <p className={`mb-12 leading-relaxed transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              <h3 className={`text-xl sm:text-2xl font-light mb-6 sm:mb-8 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Let's work together</h3>
+              <p className={`mb-8 sm:mb-12 leading-relaxed text-sm sm:text-base transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 I'm always interested in hearing about new opportunities and exciting projects. 
                 Whether you have a question or just want to say hi, I'll try my best to get back to you!
               </p>
 
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h4 className={`text-lg font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Email</h4>
-                  <a href="mailto:vsivareddy.venna@gmail.com" className={`transition-colors ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
+                  <h4 className={`text-base sm:text-lg font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Email</h4>
+                  <a href="mailto:vsivareddy.venna@gmail.com" className={`text-sm sm:text-base transition-colors mobile-touch-target ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
                     vsivareddy.venna@gmail.com
                   </a>
                 </div>

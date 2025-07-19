@@ -68,21 +68,21 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className={`min-h-screen py-20 transition-colors duration-300 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
-      <div className="container mx-auto px-6">
+    <section id="projects" className={`min-h-screen py-12 sm:py-16 md:py-20 transition-colors duration-300 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className={`text-5xl font-thin mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>work</h2>
-            <div className={`w-16 h-px mx-auto transition-colors duration-300 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className={`text-3xl sm:text-4xl md:text-5xl font-thin mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>work</h2>
+            <div className={`w-12 sm:w-16 h-px mx-auto transition-colors duration-300 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
             {projects.map((project) => (
               <div key={project.id} className="group">
-                <div className={`rounded-lg overflow-hidden mb-6 transition-all duration-300 ${isDarkMode ? 'bg-gray-900/10 border border-gray-800/30 hover:bg-gray-800/20 hover:border-gray-700/50' : 'bg-gray-50 border border-gray-200 hover:shadow-lg'}`}>
+                <div className={`rounded-lg overflow-hidden mb-4 sm:mb-6 transition-all duration-300 ${isDarkMode ? 'bg-gray-900/10 border border-gray-800/30 hover:bg-gray-800/20 hover:border-gray-700/50' : 'bg-gray-50 border border-gray-200 hover:shadow-lg'}`}>
                   <div className={`aspect-video flex items-center justify-center transition-colors duration-300 ${isDarkMode ? 'bg-gray-900/20' : 'bg-gray-100'}`}>
                     <div className="text-center">
-                      <div className={`w-16 h-16 rounded-lg mx-auto mb-4 flex items-center justify-center transition-colors duration-300 ${isDarkMode ? 'bg-gray-800/40' : 'bg-white'}`}>
+                      <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-lg mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-colors duration-300 ${isDarkMode ? 'bg-gray-800/40' : 'bg-white'}`}>
                         {project.id === 'log-analysis' && (
                           <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M3 3h18v2H3V3zm0 4h18v2H3V7zm0 4h18v2H3v-2zm0 4h18v2H3v-2zm0 4h18v2H3v-2z"/>
@@ -104,28 +104,28 @@ export default function Projects() {
                           </svg>
                         )}
                       </div>
-                      <h3 className={`text-xl font-light transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>{project.title}</h3>
-                      <p className={`text-sm opacity-70 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{project.subtitle}</p>
+                      <h3 className={`text-lg sm:text-xl font-light transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>{project.title}</h3>
+                      <p className={`text-xs sm:text-sm opacity-70 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{project.subtitle}</p>
                     </div>
                   </div>
-                  <div className="p-6">
-                    <p className={`mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{project.description}</p>
+                  <div className="p-4 sm:p-6">
+                    <p className={`mb-4 text-sm sm:text-base transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{project.description}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.technologies.slice(0, 3).map((tech) => (
-                        <span key={tech} className={`px-3 py-1 text-sm rounded-full transition-colors duration-300 ${isDarkMode ? 'bg-gray-800/40 text-gray-300 border border-gray-700/40' : 'bg-gray-100 text-gray-700'}`}>
+                        <span key={tech} className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors duration-300 ${isDarkMode ? 'bg-gray-800/40 text-gray-300 border border-gray-700/40' : 'bg-gray-100 text-gray-700'}`}>
                           {tech}
                         </span>
                       ))}
                       {project.technologies.length > 3 && (
-                        <span className={`px-3 py-1 text-sm rounded-full transition-colors duration-300 ${isDarkMode ? 'bg-gray-800/40 text-gray-300 border border-gray-700/40' : 'bg-gray-100 text-gray-700'}`}>
+                        <span className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors duration-300 ${isDarkMode ? 'bg-gray-800/40 text-gray-300 border border-gray-700/40' : 'bg-gray-100 text-gray-700'}`}>
                           +{project.technologies.length - 3} more
                         </span>
                       )}
                     </div>
-                    <div className="flex space-x-4">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                       <button
                         onClick={() => setSelectedProject(project)}
-                        className={`transition-colors font-medium ${isDarkMode ? 'text-white hover:text-gray-300' : 'text-black hover:text-gray-600'}`}
+                        className={`transition-colors font-medium text-sm sm:text-base mobile-touch-target ${isDarkMode ? 'text-white hover:text-gray-300' : 'text-black hover:text-gray-600'}`}
                       >
                         see project
                       </button>
