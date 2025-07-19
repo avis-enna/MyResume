@@ -18,7 +18,7 @@ import NewDesignLayout from "./new_design/NewDesignLayout";
 // VersionDisplay is now integrated into Footer component
 
 export default function Home() {
-  const [currentUI, setCurrentUI] = useState<'new' | 'v1' | 'v2'>('new');
+  const [currentUI, setCurrentUI] = useState<'new' | 'v1' | 'v2'>(() => { const modes: ('new' | 'v1' | 'v2')[] = ['new', 'v1', 'v2']; const randomIndex = Math.floor(Math.random() * modes.length); return modes[randomIndex]; });
 
   const toggleUI = () => {
     if (currentUI === 'new') {
