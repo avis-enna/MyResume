@@ -1,45 +1,54 @@
 "use client";
 
 import { useDarkMode } from "./DarkModeContext";
-
+import { useState } from "react";
 
 export default function About() {
   const { isDarkMode } = useDarkMode();
+  const [imageError, setImageError] = useState(false);
 
   return (
-    <section id="about" className={`min-h-screen py-20 transition-colors duration-300 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
-      <div className="container mx-auto px-6">
+    <section id="about" className={`min-h-screen py-12 sm:py-16 md:py-20 transition-colors duration-300 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className={`text-5xl font-thin mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>about</h2>
-            <div className={`w-16 h-px mx-auto transition-colors duration-300 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className={`text-3xl sm:text-4xl md:text-5xl font-thin mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>about</h2>
+            <div className={`w-12 sm:w-16 h-px mx-auto transition-colors duration-300 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12 md:gap-16 items-start">
             {/* Profile Section */}
             <div className="lg:col-span-1 text-center">
-              <div className={`w-60 h-60 rounded-2xl mx-auto mb-8 flex items-center justify-center relative overflow-hidden transition-colors duration-300 ${isDarkMode ? 'bg-gray-900/10 border border-gray-800/30' : 'bg-gray-50 border border-gray-200'}`}>
-                <img
-                  src="/profile-photo.png"
-                  alt="Venna Venkata Siva Reddy"
-                  width={240}
-                  height={240}
-                  className="object-cover transition-transform duration-300 hover:scale-105"
-                  
-                />
+              <div className={`w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 rounded-2xl mx-auto mb-6 sm:mb-8 flex items-center justify-center relative overflow-hidden transition-colors duration-300 ${isDarkMode ? 'bg-gray-900/10 border border-gray-800/30' : 'bg-gray-50 border border-gray-200'}`}>
+                {!imageError ? (
+                  <img
+                    src="/profile-photo.png"
+                    alt="Venna Venkata Siva Reddy"
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 rounded-2xl"
+                    onError={(e) => {
+                      console.error('Profile image failed to load:', e);
+                      setImageError(true);
+                    }}
+                    onLoad={() => console.log('Profile image loaded successfully')}
+                  />
+                ) : (
+                  <div className={`w-full h-full flex items-center justify-center text-6xl transition-colors duration-300 ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>
+                    👤
+                  </div>
+                )}
               </div>
-              <h3 className={`text-2xl font-light mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Venna Venkata Siva Reddy</h3>
-              <p className={`text-sm mb-6 transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+              <h3 className={`text-xl sm:text-2xl font-light mb-3 sm:mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Venna Venkata Siva Reddy</h3>
+              <p className={`text-sm mb-4 sm:mb-6 transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 Network Engineer & Software Developer
               </p>
-              <div className="flex justify-center space-x-6 mb-8">
-                <a href="https://linkedin.com/in/sivavenna" target="_blank" rel="noopener noreferrer" className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
+              <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
+                <a href="https://linkedin.com/in/sivavenna" target="_blank" rel="noopener noreferrer" className={`text-xs sm:text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
                   LINKEDIN
                 </a>
-                <a href="https://github.com/sivavenna" target="_blank" rel="noopener noreferrer" className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
+                <a href="https://github.com/sivavenna" target="_blank" rel="noopener noreferrer" className={`text-xs sm:text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
                   GITHUB
                 </a>
-                <a href="mailto:vsivareddy.venna@gmail.com" className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
+                <a href="mailto:vsivareddy.venna@gmail.com" className={`text-xs sm:text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
                   EMAIL
                 </a>
               </div>

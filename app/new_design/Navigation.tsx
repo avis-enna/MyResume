@@ -3,18 +3,18 @@
 import { useState } from "react";
 import { useDarkMode } from "./DarkModeContext";
 
-export default function Navigation() {
+export default function Navigation({ isMobile }: { isMobile?: boolean }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-sm transition-colors duration-300 ${isDarkMode ? 'bg-black/50' : 'bg-white/50'}`}>
-      <div className="container mx-auto px-6">
-        <div className="flex justify-between items-center py-6">
-          <div className={`text-xl font-light transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>SVR.</div>
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="flex justify-between items-center py-4 sm:py-6">
+          <div className={`text-lg sm:text-xl font-light transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>SVR.</div>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-12">
+          <div className="hidden md:flex items-center space-x-8 lg:space-x-12">
             <a href="#home" className={`text-sm font-light transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>home</a>
             <a href="#about" className={`text-sm font-light transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>about</a>
             <a href="#projects" className={`text-sm font-light transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>work</a>
@@ -54,12 +54,36 @@ export default function Navigation() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className={`md:hidden py-4 border-t transition-colors duration-300 ${isDarkMode ? 'border-gray-800' : 'border-gray-100'}`}>
-            <div className="flex flex-col space-y-4">
-              <a href="#home" className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>home</a>
-              <a href="#about" className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>about me</a>
-              <a href="#projects" className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>projects</a>
-              <a href="#contact" className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>contact</a>
-              <div className="flex items-center space-x-3 pt-4">
+            <div className="flex flex-col space-y-6">
+              <a 
+                href="#home" 
+                className={`py-2 text-base transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                home
+              </a>
+              <a 
+                href="#about" 
+                className={`py-2 text-base transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                about me
+              </a>
+              <a 
+                href="#projects" 
+                className={`py-2 text-base transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                projects
+              </a>
+              <a 
+                href="#contact" 
+                className={`py-2 text-base transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                contact
+              </a>
+              <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-800">
                 <span className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                   {isDarkMode ? 'light mode' : 'dark mode'}
                 </span>

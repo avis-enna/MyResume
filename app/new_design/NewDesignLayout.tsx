@@ -9,30 +9,37 @@ import Contact from "./Contact";
 import Footer from "./Footer";
 import DotMatrixBackground from "./DotMatrixBackground";
 
-function LayoutContent() {
+function LayoutContent({ isMobile }: { isMobile?: boolean }) {
   const { isDarkMode } = useDarkMode();
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 relative ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
-      <DotMatrixBackground />
+    <div className={`min-h-screen transition-colors duration-300 ${
+      isDarkMode ? 'bg-black text-white' : 'bg-white text-black'
+    }`}>
+      {/* Dot Matrix Background */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div 
+          className={`w-full h-full ${
+            isDarkMode ? 'dot-matrix-dark' : 'dot-matrix-light'
+          }`}
+        />
+      </div>
+      
+      {/* Content */}
       <div className="relative z-10">
-        <Navigation />
+        <Navigation isMobile={isMobile} />
         <main>
           <Hero />
           <About />
           <Projects />
-          <Contact />
         </main>
-        <Footer />
       </div>
     </div>
   );
-}
-
-export default function NewDesignLayout() {
+}export default function NewDesignLayout({ isMobile }: { isMobile?: boolean }) {
   return (
     <DarkModeProvider>
-      <LayoutContent />
+      <LayoutContent isMobile={isMobile} />
     </DarkModeProvider>
   );
 }
