@@ -43,10 +43,10 @@ export default function Hero() {
         </div>
 
         <div className="mt-16 flex justify-center space-x-8">
-          <button className={`px-8 py-3 border transition-all duration-300 hover:scale-105 ${isDarkMode ? 'border-white text-white hover:bg-white hover:text-black' : 'border-black text-black hover:bg-black hover:text-white'}`}>
+          <button onClick={() => { const projectsSection = document.getElementById('projects'); if (projectsSection) { projectsSection.scrollIntoView({ behavior: 'smooth' }); } }} className={`px-8 py-3 border transition-all duration-300 hover:scale-105 ${isDarkMode ? 'border-white text-white hover:bg-white hover:text-black' : 'border-black text-black hover:bg-black hover:text-white'}`}>
             view work
           </button>
-          <button className={`px-8 py-3 transition-all duration-300 hover:scale-105 ${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
+          <button onClick={() => { const contactSection = document.getElementById('contact'); if (contactSection) { contactSection.scrollIntoView({ behavior: 'smooth' }); } }} className={`px-8 py-3 transition-all duration-300 hover:scale-105 ${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
             get in touch
           </button>
         </div>
