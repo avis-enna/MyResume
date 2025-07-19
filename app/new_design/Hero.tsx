@@ -53,7 +53,7 @@ export default function Hero() {
       </div>
 
       {/* Side Service Label */}
-      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 rotate-90 origin-center">
+      <div className="fixed right-4 top-1/3 transform -translate-y-1/2 rotate-90 origin-center z-0">
         <div className="flex items-center space-x-4">
           <span className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>portfolio v3</span>
           <span className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-blue-400' : 'text-blue-500'}`}>MODERN</span>

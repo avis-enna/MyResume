@@ -34,7 +34,7 @@ export default function Home() {
   if (currentUI === 'new') {
     return (
       <div className="relative">
-        <div className="fixed bottom-6 left-6 z-[9999]">
+        <div className="fixed bottom-6 left-6 z-50">
           <button
             onClick={toggleUI}
             className="text-gray-600 hover:text-black transition-all duration-300 text-xs border border-gray-200 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-full hover:border-gray-300 hover:bg-white shadow-lg"
@@ -53,7 +53,7 @@ export default function Home() {
     return (
       <main className="min-h-screen bg-dark-bg relative">
         {/* V1 - V2 - New Toggle Button - Blended with navigation */}
-        <div className="fixed bottom-6 left-6 z-[9999]">
+        <div className="fixed bottom-6 left-6 z-50">
           <button
             onClick={toggleUI}
             className="text-cyber-blue hover:text-cyber-purple transition-all duration-300 font-cyber text-xs border border-cyber-blue/20 bg-dark-bg/90 backdrop-blur-sm px-3 py-2 rounded-full hover:border-cyber-purple/40 hover:bg-dark-bg shadow-lg"
@@ -78,7 +78,7 @@ export default function Home() {
   // V2 UI - Terminal design
   return (
     <div className="relative">
-      <div className="fixed bottom-6 left-6 z-[9999]">
+      <div className="fixed bottom-6 left-6 z-50">
         <button
           onClick={toggleUI}
           className="text-green-400 hover:text-green-300 transition-all duration-300 font-mono text-xs border border-green-400/20 bg-black/90 backdrop-blur-sm px-3 py-2 rounded-full hover:border-green-300/40 hover:bg-black shadow-lg"
