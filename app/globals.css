@@ -20,11 +20,27 @@
       radial-gradient(circle at 40% 80%, rgba(244, 113, 181, 0.05) 0%, transparent 50%);
   }
 
+  /* Smooth scrolling with offset for fixed navigation */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
   /* Improve touch targets on mobile */
   @media (max-width: 768px) {
     button, a {
       min-height: 44px;
       min-width: 44px;
+    }
+    
+    /* Improve letter spacing on mobile */
+    .tracking-wide {
+      letter-spacing: 0.025em;
+    }
+    
+    /* Prevent zoom on input focus */
+    input, textarea, select {
+      font-size: 16px;
     }
   }
 }

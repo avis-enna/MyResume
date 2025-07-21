@@ -14,7 +14,7 @@ function LayoutContent({ isMobile }: { isMobile?: boolean }) {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
-      isDarkMode ? 'bg-black text-white' : 'bg-white text-black'
+      isDarkMode ? 'bg-slate-900 text-white' : 'bg-white text-black'
     }`}>
       {/* Dot Matrix Background */}
       <div className="fixed inset-0 pointer-events-none">
@@ -28,11 +28,13 @@ function LayoutContent({ isMobile }: { isMobile?: boolean }) {
       {/* Content */}
       <div className="relative z-10">
         <Navigation isMobile={isMobile} />
-        <main>
+        <main className="space-y-0">
           <Hero />
           <About />
           <Projects />
+          <Contact />
         </main>
+        <Footer />
       </div>
     </div>
   );

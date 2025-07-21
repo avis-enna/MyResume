@@ -34,11 +34,11 @@ export default function Projects() {
     },
     {
       id: "iot-monitoring",
-      title: "IoT Monitoring System",
-      subtitle: "Environmental data collection",
-      description: "IoT-based continuous abiotic factor monitoring system for agricultural applications with real-time data collection and analysis.",
-      longDescription: "Real-time environmental monitoring system designed for agricultural applications. Integrates IoT sensors with backend services to collect and process environmental data continuously. Features responsive dashboards, alerting mechanisms, and historical data tracking.",
-      technologies: ["Java", "React", "Arduino", "IoT Sensors", "MySQL", "REST APIs"],
+      title: "IoT-Based Continuous Abiotic Factor Monitoring",
+      subtitle: "Agricultural monitoring system",
+      description: "Real-time environmental monitoring system for agricultural applications with IoT sensors, data visualization, and alerting mechanisms.",
+      longDescription: "Designed and implemented a comprehensive real-time environmental monitoring system specifically for agricultural applications. The system integrates IoT sensors with backend services to collect and process environmental data continuously. Features responsive dashboards using React for data visualization and trend analysis, secure data transmission protocols, and anomaly detection for system reliability. Implemented data storage and retrieval mechanisms for historical environmental data tracking with alerting mechanisms for critical environmental threshold breaches.",
+      technologies: ["Java", "React", "Arduino", "IoT Sensors", "Data Analytics", "REST APIs"],
       category: "IoT Application",
       image: "/api/placeholder/400/300",
       githubUrl: "https://github.com/sivavenna/iot-monitoring"
@@ -68,12 +68,15 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className={`min-h-screen py-12 sm:py-16 md:py-20 transition-colors duration-300 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
-      <div className="container mx-auto px-4 sm:px-6">
+    <section id="projects" className={`py-20 sm:py-24 md:py-32 transition-colors duration-500 scroll-mt-20 ${isDarkMode ? 'bg-slate-900' : 'bg-neutral-50'}`}>
+      <div className="container mx-auto px-6 sm:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <h2 className={`text-3xl sm:text-4xl md:text-5xl font-thin mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>work</h2>
-            <div className={`w-12 sm:w-16 h-px mx-auto transition-colors duration-300 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
+          {/* Refined header */}
+          <div className="text-center mb-16 sm:mb-20 md:mb-24">
+            <h2 className={`text-2xl sm:text-3xl md:text-4xl font-extralight tracking-[0.1em] mb-4 transition-colors duration-500 ${isDarkMode ? 'text-amber-50' : 'text-slate-800'}`}>
+              selected work
+            </h2>
+            <div className={`w-16 sm:w-20 h-[1px] mx-auto transition-colors duration-500 ${isDarkMode ? 'bg-amber-500' : 'bg-amber-300'}`}></div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
@@ -156,7 +159,7 @@ export default function Projects() {
 
       {/* Project Modal */}
       {selectedProject && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-6">
+        <div className="fixed inset-0 bg-slate-900/80 flex items-center justify-center z-50 p-6">
           <div className={`rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto border transition-colors duration-300 ${isDarkMode ? 'bg-gray-900/60 border-gray-800/40 backdrop-blur-sm' : 'bg-white border-gray-200'}`}>
             <div className="p-8">
               <div className="flex justify-between items-start mb-6">
@@ -228,7 +231,7 @@ export default function Projects() {
                       href={selectedProject.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`px-6 py-3 rounded-lg transition-colors ${isDarkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-800'}`}
+                      className={`px-6 py-3 rounded-lg transition-colors ${isDarkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-slate-900 text-white hover:bg-gray-800'}`}
                     >
                       Live Demo
                     </a>
