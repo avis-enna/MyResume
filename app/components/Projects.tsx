@@ -1,12 +1,25 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ExternalLink, Github, Code, Smartphone, Globe, Database, Bot, Activity } from 'lucide-react'
+import { ExternalLink, Github, Code, Smartphone, Globe, Database, Bot, Activity, Cpu } from 'lucide-react'
 
 export default function Projects() {
   const projects = [
     {
       id: 1,
+      title: 'IoT-Based Continuous Abiotic Factor Monitoring',
+      description: 'Real-time environmental monitoring system for agricultural applications with IoT sensors integration. Features responsive dashboards for data visualization, historical data tracking, alerting mechanisms for critical thresholds, and secure data transmission protocols with anomaly detection for system reliability.',
+      tech: ['Java', 'React', 'Arduino', 'IoT Sensors', 'Real-time Processing', 'Data Visualization', 'Environmental Monitoring', 'Alert Systems', 'Secure Protocols'],
+      image: '/api/placeholder/600/400',
+      github: '#',
+      live: '#',
+      category: 'IoT',
+      icon: Cpu,
+      featured: true,
+      publication: 'Research Paper: "IoT-Based Continuous Abiotic Factor Monitoring" – IJFMR, May–June 2023'
+    },
+    {
+      id: 2,
       title: 'AI Chatbot Microservice',
       description: 'Production-ready AI chatbot microservice with Ollama integration, featuring real-time WebSocket communication, embeddable widget, session management, and comprehensive API. Includes rate limiting, authentication, SQLite persistence, and Docker containerization for seamless deployment. Try the chat widget below!',
       tech: ['Node.js', 'TypeScript', 'Express.js', 'Socket.io', 'Ollama', 'SQLite', 'Docker', 'WebSocket', 'API Design', 'AI Integration'],
@@ -17,7 +30,7 @@ export default function Projects() {
       icon: Bot,
     },
     {
-      id: 2,
+      id: 3,
       title: 'Log Analysis System',
       description: 'Enterprise-grade log analysis and monitoring system built with Java Spring Boot, featuring real-time log processing, pattern detection, security threat identification, and interactive dashboards. Includes Kafka streaming, Elasticsearch integration, alert management, and comprehensive analytics with Docker orchestration.',
       tech: ['Java 17', 'Spring Boot', 'Kafka', 'Elasticsearch', 'PostgreSQL', 'Redis', 'Docker', 'Prometheus', 'Grafana', 'Security Analysis'],
@@ -28,7 +41,7 @@ export default function Projects() {
       icon: Activity,
     },
     {
-      id: 3,
+      id: 4,
       title: 'Library Management System',
       description: 'Advanced DBMS project featuring interactive CRUD operations, real-time statistics, and comprehensive database design. Includes member management, book borrowing/returning, overdue tracking, and live API demonstrations with professional web interface.',
       tech: ['PostgreSQL', 'Python', 'Flask', 'SQLite', 'SQL', 'Database Design', 'CRUD Operations', 'REST API', 'Interactive UI'],
@@ -39,7 +52,7 @@ export default function Projects() {
       icon: Database,
     },
     {
-      id: 4,
+      id: 5,
       title: 'Secure E-Commerce Microservices Platform',
       description: 'Production-ready e-commerce platform with microservices architecture featuring JWT authentication, API Gateway, rate limiting, circuit breakers, Redis caching, and comprehensive security measures. Includes User, Product, Order, and Notification services with Docker orchestration.',
       tech: ['FastAPI', 'PostgreSQL', 'Redis', 'Docker', 'JWT', 'Microservices', 'API Gateway', 'Circuit Breaker', 'Rate Limiting', 'Security'],

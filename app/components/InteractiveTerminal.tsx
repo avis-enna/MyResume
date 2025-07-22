@@ -411,35 +411,56 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
   }, []);
 
   const availableCommands = {
-    help: "Show available commands",
-    ls: "List files and directories",
-    cd: "Change directory",
-    cat: "Display file contents",
+    // Navigation & Basic Commands
+    help: "Show available commands with examples",
+    ls: "List files and directories (try: ls -la)",
+    cd: "Change directory (try: cd projects)",
     pwd: "Print working directory",
-    find: "Search for files",
-    grep: "Search text in files",
-    open: "Open a section",
-    close: "Close a section",
-    minimize: "Minimize a section",
-    maximize: "Maximize a section",
-    status: "Show system status",
-    clear: "Clear terminal",
-    whoami: "Display current user",
-    date: "Display current date",
+    clear: "Clear terminal screen",
+    exit: "Exit terminal mode",
+
+    // File Operations
+    cat: "Display file contents (try: cat resume.txt)",
+    find: "Search for files (try: find README.md)",
+    grep: "Search text in files (try: grep 'cisco' resume.txt)",
+
+    // Portfolio Navigation
+    about: "Show about information",
+    skills: "Display technical skills",
+    experience: "Show work experience",
+    projects: "List all projects",
+    contact: "Show contact information",
+    resume: "Display resume summary",
+
+    // System Information
+    whoami: "Display current user info",
+    date: "Display current date and time",
     uname: "System information",
-    ping: "Ping a host",
+    status: "Show system status",
+
+    // Network Commands
+    ping: "Ping a host (try: ping cisco.com)",
     netstat: "Show network connections",
-    traceroute: "Trace route to host",
+    traceroute: "Trace route to host (try: traceroute google.com)",
     ifconfig: "Show network interfaces",
-    curl: "HTTP client",
-    nslookup: "DNS lookup",
-    github: "Show GitHub stats",
-    weather: "Current weather",
-    system: "System information",
-    docker: "Docker commands",
+    curl: "HTTP client (try: curl https://api.github.com/users/avis-enna)",
+    nslookup: "DNS lookup (try: nslookup cisco.com)",
+
+    // Development & Tools
+    github: "Show GitHub statistics",
+    docker: "Docker commands and info",
     ps: "List running processes",
     history: "Show command history",
-    exit: "Exit terminal mode"
+
+    // Fun Commands
+    weather: "Current weather information",
+    quote: "Display inspirational quote",
+    joke: "Tell a programming joke",
+
+    // Portfolio Specific
+    certifications: "Show my certifications",
+    education: "Display education background",
+    publications: "Show research publications"
   };
 
   useEffect(() => {
@@ -450,18 +471,34 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
     const initMessages = [
       "╔═══════════════════════════════════════════════════════════════════════════════════╗",
       "║                        Welcome to Siva's Interactive Terminal                     ║",
-      "║                           Portfolio System v2.0                                  ║",
+      "║                           Portfolio System v3.0 - Enhanced                       ║",
       "╚═══════════════════════════════════════════════════════════════════════════════════╝",
       "",
-      "🚀 System initialized successfully!",
+      "🚀 System initialized successfully! Enhanced with new features:",
       "",
-      "💡 Quick Commands:",
-      "   • 'help' - Show all available commands",
-      "   • 'ls' - List all portfolio sections",
-      "   • 'open <section>' - Open section as draggable window",
-      "   • 'status' - Show system status",
+      "✨ NEW FEATURES:",
+      "• Enhanced help system with categories (try 'help portfolio')",
+      "• Smart command suggestions and auto-completion",
+      "• Portfolio-specific commands (about, skills, experience, etc.)",
+      "• Fun commands (quote, joke) for entertainment",
+      "• Better error handling with command suggestions",
       "",
-      "📁 Available: about.txt, skills.json, experience.log, projects/, contact.info",
+      "💡 QUICK START:",
+      "• Type 'help' for categorized command guide",
+      "• Type 'about' to learn about me",
+      "• Type 'skills' to see my technical expertise",
+      "• Type 'projects' to view my work",
+      "• Type 'resume' for a quick summary",
+      "",
+      "🎯 KEYBOARD SHORTCUTS:",
+      "• Tab - Auto-complete commands",
+      "• ↑/↓ - Navigate command history",
+      "• Ctrl+C - Cancel current input",
+      "• Ctrl+L - Clear screen",
+      "• Esc - Clear current input",
+      "",
+      "📁 Available files: about.txt, skills.json, experience.log, projects/, contact.info",
+      "🎉 Ready to explore! Start with 'help' or any command above.",
       ""
     ];
     
@@ -641,11 +678,167 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
     bringToFront(sectionId);
   };
 
+  // Command suggestion function
+  const getSuggestions = (input: string): string[] => {
+    if (!input.trim()) return [];
+
+    const commands = Object.keys(availableCommands);
+    const matches = commands.filter(cmd =>
+      cmd.toLowerCase().startsWith(input.toLowerCase())
+    );
+
+    return matches.slice(0, 5); // Limit to 5 suggestions
+  };
+
+  // Enhanced help command with categories
+  const showHelp = (category?: string): string[] => {
+    const helpOutput = [
+      "🚀 Siva Reddy's Interactive Terminal - Help Guide",
+      "=" .repeat(50),
+      ""
+    ];
+
+    if (!category) {
+      helpOutput.push(
+        "📋 COMMAND CATEGORIES:",
+        "",
+        "🔹 Navigation: help nav",
+        "🔹 Portfolio: help portfolio",
+        "🔹 System: help system",
+        "🔹 Network: help network",
+        "🔹 Development: help dev",
+        "🔹 Fun: help fun",
+        "",
+        "💡 QUICK START:",
+        "• Type 'about' to learn about me",
+        "• Type 'skills' to see my technical skills",
+        "• Type 'projects' to view my projects",
+        "• Type 'resume' for a quick summary",
+        "",
+        "🎯 EXAMPLES:",
+        "• ls -la (list files with details)",
+        "• cat resume.txt (view resume)",
+        "• ping cisco.com (test connectivity)",
+        "• github (view GitHub stats)",
+        "",
+        "Type 'help [category]' for specific commands or just start exploring! 🎉"
+      );
+      return helpOutput;
+    }
+
+    // Category-specific help
+    switch (category) {
+      case 'nav':
+      case 'navigation':
+        helpOutput.push(
+          "🧭 NAVIGATION COMMANDS:",
+          "",
+          "help          - Show this help guide",
+          "ls [options]  - List files (try: ls -la)",
+          "cd <dir>      - Change directory",
+          "pwd           - Show current directory",
+          "clear         - Clear terminal screen",
+          "exit          - Exit terminal mode"
+        );
+        break;
+
+      case 'portfolio':
+        helpOutput.push(
+          "👨‍💻 PORTFOLIO COMMANDS:",
+          "",
+          "about         - About me and my background",
+          "skills        - Technical skills and expertise",
+          "experience    - Work experience and roles",
+          "projects      - My development projects",
+          "contact       - Contact information",
+          "resume        - Resume summary",
+          "certifications - Professional certifications",
+          "education     - Educational background",
+          "publications  - Research publications"
+        );
+        break;
+
+      case 'system':
+        helpOutput.push(
+          "⚙️ SYSTEM COMMANDS:",
+          "",
+          "whoami        - Current user information",
+          "date          - Current date and time",
+          "uname         - System information",
+          "status        - System status",
+          "ps            - Running processes",
+          "history       - Command history"
+        );
+        break;
+
+      case 'network':
+        helpOutput.push(
+          "🌐 NETWORK COMMANDS:",
+          "",
+          "ping <host>      - Test connectivity",
+          "traceroute <host> - Trace network path",
+          "netstat          - Network connections",
+          "ifconfig         - Network interfaces",
+          "nslookup <host>  - DNS lookup",
+          "curl <url>       - HTTP requests"
+        );
+        break;
+
+      case 'dev':
+      case 'development':
+        helpOutput.push(
+          "🛠️ DEVELOPMENT COMMANDS:",
+          "",
+          "github        - GitHub statistics",
+          "docker        - Docker information",
+          "find <file>   - Search for files",
+          "grep <text>   - Search in files",
+          "cat <file>    - Display file contents"
+        );
+        break;
+
+      case 'fun':
+        helpOutput.push(
+          "🎉 FUN COMMANDS:",
+          "",
+          "weather       - Current weather",
+          "quote         - Inspirational quote",
+          "joke          - Programming joke"
+        );
+        break;
+
+      default:
+        helpOutput.push(
+          "❌ Unknown category. Available categories:",
+          "nav, portfolio, system, network, dev, fun"
+        );
+    }
+
+    return helpOutput;
+  };
+
   const handleCommand = async (command: string) => {
     const cmd = command.trim().toLowerCase();
     const args = cmd.split(/\s+/).filter(arg => arg.length > 0);
     const baseCmd = args[0];
     let output: string[] = [];
+
+    // Check for typos and suggest corrections
+    if (baseCmd && !availableCommands[baseCmd]) {
+      const suggestions = getSuggestions(baseCmd);
+      if (suggestions.length > 0) {
+        output = [
+          `❌ Command '${baseCmd}' not found.`,
+          "",
+          "💡 Did you mean:",
+          ...suggestions.map(s => `   ${s} - ${availableCommands[s]}`),
+          "",
+          "Type 'help' for all available commands."
+        ];
+        setHistory(prev => [...prev, `$ ${command}`, ...output]);
+        return;
+      }
+    }
 
     // Add command to history
     setCommandHistory(prev => [...prev, command]);
@@ -657,25 +850,7 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
 
     switch (baseCmd) {
       case "help":
-        output = [
-          "╔═══════════════ AVAILABLE COMMANDS ═══════════════╗",
-          "║                                                   ║",
-          ...Object.entries(availableCommands).map(([cmd, desc]) => `║ ${cmd.padEnd(12)} - ${desc.padEnd(32)} ║`),
-          "║                                                   ║",
-          "╠═══════════════════════════════════════════════════╣",
-          "║                💡 USAGE EXAMPLES                  ║",
-          "╠═══════════════════════════════════════════════════╣",
-          "║ open about       - Open about section            ║",
-          "║ open proj        - Open projects (short form)    ║", 
-          "║ cat skills.json  - View skills file              ║",
-          "║ minimize exp     - Minimize experience window    ║",
-          "║ status           - Show detailed system status   ║",
-          "║ ls               - List all available files      ║",
-          "║ clear            - Clear terminal output         ║",
-          "║ exit             - Switch back to classic UI     ║",
-          "╚═══════════════════════════════════════════════════╝",
-          ""
-        ];
+        output = showHelp(args[1]);
         break;
 
       case "ls":
@@ -1056,8 +1231,31 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
         const openCount = sections.filter(s => s.isOpen && !s.isMinimized).length;
         const minimizedWindowCount = sections.filter(s => s.isOpen && s.isMinimized).length;
         const maximizedCount = sections.filter(s => s.isMaximized).length;
-        
+        const currentDate = new Date();
+
         output = [
+          "💼 Venna Venkata Siva Reddy - System Status",
+          "=" .repeat(45),
+          "",
+          "👤 PERSONAL INFO:",
+          "• Name: Venna Venkata Siva Reddy",
+          "• Role: Software Engineer Trainee at Cisco",
+          "• Location: Hyderabad, India",
+          "• Experience: 2+ years in software development",
+          "",
+          "🎯 CURRENT STATUS:",
+          "• Available for: Full-time opportunities",
+          "• Specializing in: Network Security & Full-Stack Development",
+          "• Working on: IoT systems and network management",
+          "• Learning: Advanced cloud technologies",
+          "",
+          "📊 PORTFOLIO STATS:",
+          `• Total Projects: 5+ (including IoT research)`,
+          `• Certifications: CCNA, CCCA, Azure Fundamentals`,
+          `• Publications: 1 research paper (IJFMR Journal)`,
+          `• GitHub Repositories: 10+ active projects`,
+          "",
+          "🖥️ TERMINAL SESSION:",
           "╔══════════════ SYSTEM STATUS ══════════════╗",
           "║ Portfolio Terminal v2.0                   ║",
           "╠═══════════════════════════════════════════╣",
@@ -1197,6 +1395,339 @@ export default function InteractiveTerminal({ onToggleUI }: InteractiveTerminalP
 
       case "history":
         output = commandHistory.map((cmd, index) => `${index + 1}  ${cmd}`);
+        break;
+
+      // Portfolio-specific commands
+      case "about":
+        output = [
+          "👨‍💻 About Venna Venkata Siva Reddy",
+          "=" .repeat(40),
+          "",
+          "🎯 Current Role: Software Engineer Trainee at Cisco",
+          "🎓 Education: B.Tech in Electronics and Telecommunication Engineering",
+          "📍 Location: Hyderabad, India",
+          "",
+          "💼 Professional Summary:",
+          "Innovative software engineer with 2+ years of experience specializing in",
+          "full-stack development, network security, and IoT solutions. Currently",
+          "working at Cisco on cutting-edge networking technologies.",
+          "",
+          "🔧 Core Expertise:",
+          "• Full-Stack Development (React, Node.js, Java)",
+          "• Network Security & Protocols",
+          "• IoT Systems & Real-time Monitoring",
+          "• Database Management (PostgreSQL, MySQL)",
+          "• Cloud Technologies & DevOps",
+          "",
+          "🏆 Key Achievements:",
+          "• Published research on IoT-based environmental monitoring",
+          "• CCNA and CCCA certified network professional",
+          "• Led development of scalable microservices architecture",
+          "",
+          "Type 'experience' for detailed work history or 'skills' for technical skills."
+        ];
+        break;
+
+      case "skills":
+        output = [
+          "🛠️ Technical Skills & Expertise",
+          "=" .repeat(35),
+          "",
+          "💻 Programming Languages:",
+          "• Java ████████████████████ 90%",
+          "• JavaScript ███████████████ 85%",
+          "• Python ██████████████████ 88%",
+          "• TypeScript ██████████████ 80%",
+          "• C++ ████████████████ 75%",
+          "",
+          "🌐 Web Technologies:",
+          "• React.js ████████████████████ 90%",
+          "• Node.js ███████████████████ 88%",
+          "• Next.js ██████████████████ 85%",
+          "• Express.js ███████████████ 82%",
+          "• HTML/CSS ████████████████████ 95%",
+          "",
+          "🗄️ Databases:",
+          "• PostgreSQL ███████████████████ 88%",
+          "• MySQL ██████████████████ 85%",
+          "• MongoDB ████████████████ 78%",
+          "",
+          "🌐 Networking & Security:",
+          "• Network Protocols ████████████████████ 92%",
+          "• Network Security ███████████████████ 88%",
+          "• Cisco Technologies ██████████████████ 85%",
+          "• IoT Systems ████████████████ 80%",
+          "",
+          "☁️ Cloud & DevOps:",
+          "• AWS ████████████████ 75%",
+          "• Docker ██████████████ 70%",
+          "• Git/GitHub ████████████████████ 90%",
+          "",
+          "📜 Certifications:",
+          "• CCNA (Cisco Certified Network Associate)",
+          "• CCCA (Cisco Certified CyberOps Associate)",
+          "• Microsoft Azure Fundamentals",
+          "",
+          "Type 'certifications' for detailed certification info."
+        ];
+        break;
+
+      case "experience":
+        output = [
+          "💼 Professional Experience",
+          "=" .repeat(30),
+          "",
+          "🏢 Cisco Systems | Software Engineer Trainee",
+          "📅 July 2024 - Present | Hyderabad, India",
+          "🔹 Developing and maintaining network management software",
+          "🔹 Working on IoT device integration and monitoring systems",
+          "🔹 Implementing security protocols for network infrastructure",
+          "🔹 Collaborating on microservices architecture design",
+          "",
+          "🏢 Cognizant Technology Solutions | Programmer Analyst Trainee",
+          "📅 February 2023 - June 2024 | Hyderabad, India",
+          "🔹 Developed full-stack web applications using React and Node.js",
+          "🔹 Implemented database solutions with PostgreSQL and MySQL",
+          "🔹 Created RESTful APIs and microservices architecture",
+          "🔹 Participated in agile development methodologies",
+          "🔹 Contributed to code reviews and technical documentation",
+          "",
+          "🎓 Key Projects:",
+          "• IoT-Based Environmental Monitoring System",
+          "• AI Chatbot Microservice with WebSocket integration",
+          "• Secure E-Commerce Platform with microservices",
+          "• Log Analysis System for network troubleshooting",
+          "",
+          "Type 'projects' to see detailed project information."
+        ];
+        break;
+
+      case "projects":
+        output = [
+          "🚀 Featured Projects",
+          "=" .repeat(25),
+          "",
+          "1️⃣ IoT-Based Continuous Abiotic Factor Monitoring",
+          "   🔧 Tech: Java, React, Arduino, IoT Sensors",
+          "   📝 Real-time environmental monitoring for agriculture",
+          "   📄 Published: IJFMR Journal, May-June 2023",
+          "",
+          "2️⃣ AI Chatbot Microservice",
+          "   🔧 Tech: Node.js, TypeScript, Socket.io, Ollama",
+          "   📝 Production-ready chatbot with WebSocket communication",
+          "   🔗 Live: https://reader-santa-accessories-scout.trycloudflare.com",
+          "",
+          "3️⃣ Log Analysis System",
+          "   🔧 Tech: Python, Pandas, Machine Learning",
+          "   📝 Automated log parsing and anomaly detection",
+          "",
+          "4️⃣ Library Management System",
+          "   🔧 Tech: Java, MySQL, Swing GUI",
+          "   📝 Complete library automation with user management",
+          "",
+          "5️⃣ Secure E-Commerce Platform",
+          "   🔧 Tech: React, Node.js, PostgreSQL, Docker",
+          "   📝 Microservices-based e-commerce with security focus",
+          "",
+          "Type 'cat project_<number>.md' for detailed project info."
+        ];
+        break;
+
+      case "resume":
+        output = [
+          "📄 Resume Summary",
+          "=" .repeat(20),
+          "",
+          "👤 Venna Venkata Siva Reddy",
+          "📧 sivareddy.venna@gmail.com",
+          "📱 +91 9390018166",
+          "🔗 linkedin.com/in/sivavenna",
+          "🐙 github.com/avis-enna",
+          "",
+          "🎯 OBJECTIVE:",
+          "Innovative software engineer seeking challenging opportunities in",
+          "full-stack development and network security to contribute to",
+          "cutting-edge technology solutions.",
+          "",
+          "🏆 HIGHLIGHTS:",
+          "• 2+ years of professional software development experience",
+          "• Currently working at Cisco on network management systems",
+          "• CCNA and CCCA certified network professional",
+          "• Published researcher in IoT and environmental monitoring",
+          "• Full-stack expertise in modern web technologies",
+          "",
+          "📚 EDUCATION:",
+          "B.Tech in Electronics and Telecommunication Engineering",
+          "Sreenidhi Institute of Science and Technology (2019-2023)",
+          "CGPA: 8.5/10",
+          "",
+          "Type 'contact' for detailed contact information."
+        ];
+        break;
+
+      case "certifications":
+        output = [
+          "🏅 Professional Certifications",
+          "=" .repeat(35),
+          "",
+          "🌐 Networking & Security:",
+          "• CCNA (Cisco Certified Network Associate)",
+          "  📅 Valid through 2027",
+          "  🔹 Routing and Switching",
+          "  🔹 Network Security Fundamentals",
+          "  🔹 Network Troubleshooting",
+          "",
+          "• CCCA (Cisco Certified CyberOps Associate)",
+          "  📅 Valid through 2027",
+          "  🔹 Security Operations Center (SOC)",
+          "  🔹 Incident Response",
+          "  🔹 Threat Detection and Analysis",
+          "",
+          "☁️ Cloud Technologies:",
+          "• Microsoft Azure Fundamentals (AZ-900)",
+          "  📅 Valid through 2026",
+          "  🔹 Cloud concepts and services",
+          "  🔹 Azure architecture and security",
+          "",
+          "🎓 Academic:",
+          "• B.Tech in Electronics and Telecommunication",
+          "  🏫 Sreenidhi Institute of Science and Technology",
+          "  📅 2019-2023 | CGPA: 8.5/10",
+          "",
+          "Type 'education' for detailed academic background."
+        ];
+        break;
+
+      case "education":
+        output = [
+          "🎓 Educational Background",
+          "=" .repeat(30),
+          "",
+          "🏫 Sreenidhi Institute of Science and Technology",
+          "📚 Bachelor of Technology (B.Tech)",
+          "🔬 Electronics and Telecommunication Engineering",
+          "📅 2019 - 2023",
+          "📊 CGPA: 8.5/10",
+          "📍 Hyderabad, Telangana, India",
+          "",
+          "🔬 Key Coursework:",
+          "• Digital Signal Processing",
+          "• Computer Networks and Communication",
+          "• Microprocessors and Microcontrollers",
+          "• Electronic Circuit Design",
+          "• Data Structures and Algorithms",
+          "• Database Management Systems",
+          "• Software Engineering Principles",
+          "",
+          "🏆 Academic Achievements:",
+          "• Consistent academic performance with 8.5+ CGPA",
+          "• Active participation in technical workshops",
+          "• Member of Electronics and Communication Society",
+          "• Participated in various technical competitions",
+          "",
+          "📄 Research Publications:",
+          "• 'IoT-Based Continuous Abiotic Factor Monitoring'",
+          "  Published in IJFMR Journal, May-June 2023",
+          "",
+          "Type 'publications' for detailed research information."
+        ];
+        break;
+
+      case "publications":
+        output = [
+          "📚 Research Publications",
+          "=" .repeat(28),
+          "",
+          "📄 IoT-Based Continuous Abiotic Factor Monitoring",
+          "🏛️ Journal: International Journal For Multidisciplinary Research (IJFMR)",
+          "📅 Published: May-June 2023",
+          "👥 Authors: Venna Venkata Siva Reddy, et al.",
+          "",
+          "📝 Abstract:",
+          "This research presents an innovative IoT-based system for continuous",
+          "monitoring of abiotic factors in agricultural environments. The system",
+          "integrates multiple sensors for real-time data collection, processing,",
+          "and visualization through responsive web dashboards.",
+          "",
+          "🔬 Key Contributions:",
+          "• Real-time environmental data collection using IoT sensors",
+          "• Responsive dashboard for data visualization and analysis",
+          "• Historical data tracking and trend analysis",
+          "• Alert mechanisms for critical threshold breaches",
+          "• Secure data transmission protocols implementation",
+          "• Anomaly detection for system reliability",
+          "",
+          "🛠️ Technologies Used:",
+          "• Java for backend processing",
+          "• React for frontend dashboard",
+          "• Arduino for sensor integration",
+          "• IoT protocols for data transmission",
+          "• Real-time data processing algorithms",
+          "",
+          "🎯 Impact:",
+          "The system provides farmers and agricultural researchers with",
+          "real-time insights into environmental conditions, enabling",
+          "data-driven decisions for crop management and yield optimization.",
+          "",
+          "Type 'projects' to see more technical projects."
+        ];
+        break;
+
+      case "contact":
+        output = [
+          "📞 Contact Information",
+          "=" .repeat(25),
+          "",
+          "👤 Venna Venkata Siva Reddy",
+          "🏢 Software Engineer Trainee at Cisco",
+          "",
+          "📧 Email: sivareddy.venna@gmail.com",
+          "📱 Phone: +91 9390018166",
+          "📍 Location: Hyderabad, India",
+          "",
+          "🌐 Professional Links:",
+          "• LinkedIn: linkedin.com/in/sivavenna",
+          "• GitHub: github.com/avis-enna",
+          "• Portfolio: (current website)",
+          "",
+          "💼 Available for:",
+          "• Full-time software development opportunities",
+          "• Networking and security consulting",
+          "• IoT and embedded systems projects",
+          "• Technical collaboration and partnerships",
+          "",
+          "📅 Preferred Contact:",
+          "Email is the best way to reach me for professional inquiries.",
+          "I typically respond within 24 hours during business days.",
+          "",
+          "🤝 Let's connect and discuss how we can work together!"
+        ];
+        break;
+
+      case "quote":
+        const quotes = [
+          "\"The best way to predict the future is to invent it.\" - Alan Kay",
+          "\"Code is like humor. When you have to explain it, it's bad.\" - Cory House",
+          "\"First, solve the problem. Then, write the code.\" - John Johnson",
+          "\"Experience is the name everyone gives to their mistakes.\" - Oscar Wilde",
+          "\"The only way to learn a new programming language is by writing programs in it.\" - Dennis Ritchie",
+          "\"Simplicity is the ultimate sophistication.\" - Leonardo da Vinci",
+          "\"Innovation distinguishes between a leader and a follower.\" - Steve Jobs"
+        ];
+        output = [quotes[Math.floor(Math.random() * quotes.length)]];
+        break;
+
+      case "joke":
+        const jokes = [
+          "Why do programmers prefer dark mode? Because light attracts bugs! 🐛",
+          "How many programmers does it take to change a light bulb? None, that's a hardware problem! 💡",
+          "Why do Java developers wear glasses? Because they can't C# ! 👓",
+          "A SQL query goes into a bar, walks up to two tables and asks: 'Can I join you?' 🍺",
+          "Why did the programmer quit his job? He didn't get arrays! 📊",
+          "There are only 10 types of people: those who understand binary and those who don't! 01",
+          "Why do programmers hate nature? It has too many bugs! 🌿🐛"
+        ];
+        output = [jokes[Math.floor(Math.random() * jokes.length)]];
         break;
 
       case "exit":
