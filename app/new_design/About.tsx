@@ -30,7 +30,7 @@ export default function About() {
               </div>
               <h3 className={`text-2xl font-light mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Venna Venkata Siva Reddy</h3>
               <p className={`text-sm mb-6 transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                Network Engineer & Software Developer
+                Software Engineer & DevOps Specialist
               </p>
               <div className="flex justify-center space-x-6 mb-8">
                 <a href="https://linkedin.com/in/sivavenna" target="_blank" rel="noopener noreferrer" className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
@@ -49,12 +49,12 @@ export default function About() {
             <div className="lg:col-span-2">
               <div className="mb-12">
                 <p className={`text-lg leading-relaxed mb-6 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                  Experienced Network Engineer with expertise in network operations, backend development, and system automation. 
-                  Currently serving as a Software Engineer Trainee at Cisco Systems with CCNA and CCCA certifications.
+                  A results-driven Software Engineer with hands-on experience in migrating legacy systems to modern, cloud-native environments. 
+                  Proven expertise in the full software development lifecycle, from backend development with Java/Spring Boot to frontend implementation with React.
                 </p>
                 <p className={`leading-relaxed transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                  Strong foundation in TCP/IP, routing, switching, and Linux system administration. Passionate about building 
-                  scalable, secure, and reliable enterprise systems.
+                  Specialized in Kubernetes, Docker, and GitOps workflows using Helm and FluxCD. A proactive problem-solver with unique 
+                  cross-functional experience in network engineering (CCNA) and data analytics, passionate about building scalable, mission-critical software.
                 </p>
               </div>
 
@@ -66,8 +66,8 @@ export default function About() {
                       <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
                     </svg>
                   </div>
-                  <h4 className={`text-base font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Network & Security</h4>
-                  <p className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>CCNA, CCCA certified with expertise in TCP/IP, routing, switching</p>
+                  <h4 className={`text-base font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Cloud & DevOps</h4>
+                  <p className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Kubernetes, Docker, Helm, FluxCD, CI/CD pipelines</p>
                 </div>
 
                 <div className={`p-6 rounded-lg border transition-colors duration-300 ${isDarkMode ? 'bg-gray-900/10 border-gray-800/30' : 'bg-gray-50 border-gray-200'}`}>
@@ -76,8 +76,8 @@ export default function About() {
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                     </svg>
                   </div>
-                  <h4 className={`text-base font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Full Stack Development</h4>
-                  <p className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Java Spring Boot, React, REST APIs, database design</p>
+                  <h4 className={`text-base font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Backend Development</h4>
+                  <p className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Java Spring Boot, REST APIs, SOAP Web Services, Microservices</p>
                 </div>
 
                 <div className={`p-6 rounded-lg border transition-colors duration-300 ${isDarkMode ? 'bg-gray-900/10 border-gray-800/30' : 'bg-gray-50 border-gray-200'}`}>
@@ -86,8 +86,8 @@ export default function About() {
                       <path d="M21 16V4a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM5 4h14v12H5V4z"/>
                     </svg>
                   </div>
-                  <h4 className={`text-base font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>System Administration</h4>
-                  <p className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Linux, Windows Server, automation scripting</p>
+                  <h4 className={`text-base font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Frontend & Database</h4>
+                  <p className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>React, JavaScript, SQL, MongoDB, IBM DB2</p>
                 </div>
 
                 <div className={`p-6 rounded-lg border transition-colors duration-300 ${isDarkMode ? 'bg-gray-900/10 border-gray-800/30' : 'bg-gray-50 border-gray-200'}`}>
@@ -96,8 +96,8 @@ export default function About() {
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
                   </div>
-                  <h4 className={`text-base font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>DevOps & Cloud</h4>
-                  <p className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Docker, CI/CD, monitoring, infrastructure automation</p>
+                  <h4 className={`text-base font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Mainframe & Legacy</h4>
+                  <p className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>COBOL, JCL, VSAM, Legacy system migration</p>
                 </div>
               </div>
             </div>
@@ -109,42 +109,42 @@ export default function About() {
                 <div className="text-center">
                   <h4 className={`text-lg font-medium mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>I've had experiences with</h4>
                   <ul className={`space-y-2 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                    <li>Network Monitoring & Analysis</li>
-                    <li>PostgreSQL & MongoDB</li>
-                    <li>GIT, GitHub, Version Control</li>
+                    <li>Kubernetes & Docker</li>
+                    <li>GitOps with FluxCD</li>
+                    <li>React & JavaScript</li>
                     <li>Python & Shell Scripting</li>
-                    <li>Docker & Containerization</li>
-                    <li>System Administration</li>
-                    <li>Database Design</li>
-                    <li>REST API Development</li>
+                    <li>MongoDB & SQL Databases</li>
+                    <li>SOAP Web Services</li>
+                    <li>Data Analytics & Visualization</li>
+                    <li>Single Sign-On (SSO)</li>
                   </ul>
                 </div>
 
                 <div className="text-center">
                   <h4 className={`text-lg font-medium mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>I have years of experience with</h4>
                   <ul className={`space-y-2 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                    <li>Network Engineering (CCNA/CCCA)</li>
-                    <li>Java Spring Boot</li>
-                    <li>TCP/IP, Routing & Switching</li>
-                    <li>Linux System Administration</li>
-                    <li>Security Implementation</li>
-                    <li>Performance Optimization</li>
-                    <li>Enterprise System Design</li>
-                    <li>Network Troubleshooting</li>
+                    <li>Java Spring Boot Development</li>
+                    <li>Microservices Architecture</li>
+                    <li>REST & SOAP APIs</li>
+                    <li>Kubernetes Orchestration</li>
+                    <li>Helm Chart Management</li>
+                    <li>CI/CD Pipeline Development</li>
+                    <li>Network Engineering (CCNA)</li>
+                    <li>Legacy System Migration</li>
                   </ul>
                 </div>
 
                 <div className="text-center">
                   <h4 className={`text-lg font-medium mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>I work and study about</h4>
                   <ul className={`space-y-2 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                    <li>Cloud Technologies (AWS, Azure)</li>
-                    <li>Microservices Architecture</li>
-                    <li>DevOps & CI/CD Practices</li>
-                    <li>Network Security & Compliance</li>
+                    <li>Cloud Technologies (AWS, GCP)</li>
+                    <li>COBOL & Mainframe Systems</li>
+                    <li>Enterprise Software Architecture</li>
+                    <li>Network Device Configuration</li>
                     <li>IoT & Real-time Systems</li>
-                    <li>Log Analysis & Monitoring</li>
-                    <li>Automation & Orchestration</li>
-                    <li>Modern Web Technologies</li>
+                    <li>Data Analytics & Jira APIs</li>
+                    <li>Batch Processing & JCL</li>
+                    <li>Modern DevOps Practices</li>
                   </ul>
                 </div>
             </div>

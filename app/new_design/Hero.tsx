@@ -8,10 +8,10 @@ export default function Hero() {
   const { isDarkMode } = useDarkMode();
   
   const titles = [
+    "software engineer",
     "network engineer",
-    "software engineer trainee",
     "backend developer", 
-    "system administrator"
+    "devops specialist"
   ];
 
   useEffect(() => {
@@ -44,8 +44,8 @@ export default function Hero() {
             {titles[currentTitle]}
           </h2>
           <p className={`text-base md:text-lg max-w-2xl mx-auto leading-relaxed transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-            Experienced Network Engineer with expertise in network operations, backend development, and system automation. 
-            Currently serving as a Software Engineer Trainee at Cisco Systems with CCNA and CCCA certifications.
+            A results-driven Software Engineer with hands-on experience in migrating legacy systems to modern, cloud-native environments. 
+            Specialized in Kubernetes, Docker, and GitOps workflows with expertise in Java Spring Boot and React development.
           </p>
         </div>
 
