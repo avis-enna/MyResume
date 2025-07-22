@@ -49,10 +49,16 @@ export default function Hero() {
           </p>
         </div>
 
-        <div className="mt-16 flex justify-center space-x-8">
+        <div className="mt-16 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8">
+          <button 
+            onClick={() => scrollToSection('experience')}
+            className={`px-8 py-3 border transition-all duration-300 hover:scale-105 ${isDarkMode ? 'border-white text-white hover:bg-white hover:text-black' : 'border-black text-black hover:bg-black hover:text-white'}`}
+          >
+            view experience
+          </button>
           <button 
             onClick={() => scrollToSection('projects')}
-            className={`px-8 py-3 border transition-all duration-300 hover:scale-105 ${isDarkMode ? 'border-white text-white hover:bg-white hover:text-black' : 'border-black text-black hover:bg-black hover:text-white'}`}
+            className={`px-8 py-3 transition-all duration-300 hover:scale-105 ${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}
           >
             view work
           </button>
