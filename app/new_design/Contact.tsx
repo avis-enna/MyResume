@@ -37,27 +37,72 @@ export default function Contact() {
             {/* Contact Information */}
             <div>
               <h3 className={`text-2xl font-light mb-8 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Let's work together</h3>
+
+              {/* Contact Form Warning */}
+              <div className={`mb-8 p-4 rounded-lg border transition-colors duration-300 ${
+                isDarkMode
+                  ? 'bg-yellow-900/20 border-yellow-500/30 text-yellow-400'
+                  : 'bg-yellow-50 border-yellow-300 text-yellow-800'
+              }`}>
+                <div className="flex items-center mb-2">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                  <span className="font-medium">Contact Form Not Working</span>
+                </div>
+                <p className="text-sm">
+                  The contact form below is currently not functional. Please reach out to me directly using the email or phone options below.
+                </p>
+              </div>
+
               <p className={`mb-12 leading-relaxed transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                I'm always interested in hearing about new opportunities and exciting projects. 
+                I'm always interested in hearing about new opportunities and exciting projects.
                 Whether you have a question or just want to say hi, I'll try my best to get back to you!
               </p>
 
               <div className="space-y-6">
-                <div>
-                  <h4 className={`text-lg font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Email</h4>
-                  <a href="mailto:vsivareddy.venna@gmail.com" className={`transition-colors ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
+                <div className={`p-4 rounded-lg border-2 transition-colors duration-300 ${
+                  isDarkMode
+                    ? 'bg-blue-900/20 border-blue-500/50'
+                    : 'bg-blue-50 border-blue-300'
+                }`}>
+                  <h4 className={`text-lg font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-blue-400' : 'text-blue-700'}`}>
+                    📧 Email (Recommended)
+                  </h4>
+                  <a
+                    href="mailto:vsivareddy.venna@gmail.com"
+                    className={`text-lg font-medium transition-colors ${isDarkMode ? 'text-white hover:text-blue-300' : 'text-black hover:text-blue-600'}`}
+                  >
                     vsivareddy.venna@gmail.com
                   </a>
+                  <p className={`text-sm mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    Click to open your email client
+                  </p>
                 </div>
-                <div>
-                  <h4 className={`text-lg font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Phone</h4>
-                  <a href="tel:+919398961541" className={`transition-colors ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
+
+                <div className={`p-4 rounded-lg border-2 transition-colors duration-300 ${
+                  isDarkMode
+                    ? 'bg-green-900/20 border-green-500/50'
+                    : 'bg-green-50 border-green-300'
+                }`}>
+                  <h4 className={`text-lg font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-green-400' : 'text-green-700'}`}>
+                    📞 Phone
+                  </h4>
+                  <a
+                    href="tel:+919398961541"
+                    className={`text-lg font-medium transition-colors ${isDarkMode ? 'text-white hover:text-green-300' : 'text-black hover:text-green-600'}`}
+                  >
                     +91 93989 61541
                   </a>
+                  <p className={`text-sm mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    Available 9 AM - 6 PM IST
+                  </p>
                 </div>
+
                 <div>
-                  <h4 className={`text-lg font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>Location</h4>
+                  <h4 className={`text-lg font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>📍 Location</h4>
                   <p className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Bengaluru, India</p>
+                  <p className={`text-sm mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Open to remote work</p>
                 </div>
               </div>
 
@@ -89,7 +134,15 @@ export default function Contact() {
 
             {/* Contact Form */}
             <div>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <div className={`mb-4 p-3 rounded-lg border transition-colors duration-300 ${
+                isDarkMode
+                  ? 'bg-red-900/20 border-red-500/30 text-red-400'
+                  : 'bg-red-50 border-red-300 text-red-700'
+              }`}>
+                <p className="text-sm font-medium">⚠️ This form is currently disabled</p>
+                <p className="text-xs mt-1">Please use the direct contact methods on the left instead</p>
+              </div>
+              <form onSubmit={handleSubmit} className="space-y-6 opacity-60 pointer-events-none">
                 <div>
                   <label htmlFor="name" className={`block text-sm font-medium mb-2 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                     Name
@@ -145,14 +198,16 @@ export default function Contact() {
                   />
                 </div>
                 <button
-                  type="submit"
-                  className={`w-full py-3 rounded-lg transition-colors font-medium ${
-                    isDarkMode 
-                      ? 'bg-white text-black hover:bg-gray-200' 
-                      : 'bg-black text-white hover:bg-gray-800'
+                  type="button"
+                  disabled={true}
+                  className={`w-full py-3 rounded-lg font-medium cursor-not-allowed transition-colors duration-300 ${
+                    isDarkMode
+                      ? 'bg-gray-700 text-gray-400 border border-gray-600'
+                      : 'bg-gray-300 text-gray-500 border border-gray-400'
                   }`}
+                  title="Contact form is currently disabled - please use direct contact methods above"
                 >
-                  Send Message
+                  Form Currently Disabled
                 </button>
               </form>
             </div>

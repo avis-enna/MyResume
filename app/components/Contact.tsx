@@ -209,6 +209,43 @@ export default function Contact() {
           </p>
         </motion.div>
 
+        {/* Contact Form Warning */}
+        <motion.div
+          className="max-w-4xl mx-auto mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-6 text-center">
+            <div className="flex items-center justify-center mb-3">
+              <svg className="w-6 h-6 text-yellow-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+              <h3 className="text-lg font-semibold text-yellow-400">Contact Form Currently Unavailable</h3>
+            </div>
+            <p className="text-gray-300 mb-4">
+              The contact form is temporarily not working. Please reach out to me directly using the methods below:
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a
+                href="mailto:vsivareddy.venna@gmail.com"
+                className="flex items-center gap-2 bg-cyber-blue/20 hover:bg-cyber-blue/30 border border-cyber-blue/50 rounded-lg px-4 py-2 text-cyber-blue hover:text-white transition-all duration-300"
+              >
+                <Mail size={18} />
+                <span>Email Me Directly</span>
+              </a>
+              <a
+                href="tel:+919398961541"
+                className="flex items-center gap-2 bg-cyber-purple/20 hover:bg-cyber-purple/30 border border-cyber-purple/50 rounded-lg px-4 py-2 text-cyber-purple hover:text-white transition-all duration-300"
+              >
+                <Phone size={18} />
+                <span>Call Me</span>
+              </a>
+            </div>
+          </div>
+        </motion.div>
+
         <motion.div
           className="grid lg:grid-cols-2 gap-16"
           variants={containerVariants}
@@ -343,16 +380,35 @@ export default function Contact() {
               </div>
             </div>
             
-            {/* Response Time Indicator */}
+            {/* Form Status Warning */}
             <motion.div
-              className="flex items-center space-x-2 mb-6 p-3 bg-cyber-blue/5 border border-cyber-blue/20 rounded-lg"
+              className="flex items-center space-x-2 mb-6 p-4 bg-red-900/20 border border-red-500/30 rounded-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm text-gray-300">
-                Typically responds within <span className="text-cyber-blue font-medium">24 hours</span>
+              <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+              <div className="flex-1">
+                <span className="text-sm text-red-400 font-medium block">
+                  ⚠️ Contact Form Currently Not Working
+                </span>
+                <span className="text-xs text-gray-300">
+                  Please use the direct email or phone contact options above instead
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Response Time Indicator */}
+            <motion.div
+              className="flex items-center space-x-2 mb-6 p-3 bg-cyber-blue/5 border border-cyber-blue/20 rounded-lg opacity-50"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 0.5, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+              <span className="text-sm text-gray-400">
+                Typically responds within <span className="text-gray-400 font-medium">24 hours</span>
+                <span className="text-red-400 text-xs ml-2">(via direct contact)</span>
               </span>
             </motion.div>
             
@@ -475,13 +531,10 @@ export default function Contact() {
               </div>
               
               <motion.button
-                type="submit"
-                disabled={isSubmitting || formProgress < 100}
-                className={`w-full cyber-button flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden ${
-                  formProgress === 100 ? 'hover:scale-105' : ''
-                }`}
-                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                type="button"
+                disabled={true}
+                className="w-full bg-gray-600 text-gray-400 border border-gray-500 rounded-lg py-3 px-6 flex items-center justify-center space-x-2 cursor-not-allowed opacity-60 relative overflow-hidden"
+                title="Contact form is currently disabled - please use direct contact methods above"
               >
                 {/* Button background animation */}
                 <motion.div
@@ -491,53 +544,11 @@ export default function Contact() {
                   transition={{ duration: 1.5, repeat: isSubmitting ? Infinity : 0 }}
                 />
                 
-                <div className="relative z-10 flex items-center space-x-2">
-                  {isSubmitting ? (
-                    <>
-                      <motion.div
-                        className="w-5 h-5 border-2 border-dark-bg border-t-transparent rounded-full"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      />
-                      <span>Sending...</span>
-                      <motion.div
-                        className="flex space-x-1"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                      >
-                        <motion.div
-                          className="w-1 h-1 bg-white rounded-full"
-                          animate={{ scale: [1, 1.5, 1] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
-                        />
-                        <motion.div
-                          className="w-1 h-1 bg-white rounded-full"
-                          animate={{ scale: [1, 1.5, 1] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
-                        />
-                        <motion.div
-                          className="w-1 h-1 bg-white rounded-full"
-                          animate={{ scale: [1, 1.5, 1] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
-                        />
-                      </motion.div>
-                    </>
-                  ) : (
-                    <>
-                      <Send size={20} />
-                      <span>
-                        {formProgress === 100 ? 'Send Message' : 'Complete form to send'}
-                      </span>
-                      {formProgress === 100 && (
-                        <motion.div
-                          className="w-2 h-2 bg-green-400 rounded-full"
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ duration: 1, repeat: Infinity }}
-                        />
-                      )}
-                    </>
-                  )}
+                <div className="flex items-center space-x-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L5.636 5.636" />
+                  </svg>
+                  <span>Form Currently Disabled</span>
                 </div>
               </motion.button>
             </form>
