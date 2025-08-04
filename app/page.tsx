@@ -39,10 +39,43 @@ export default function Home() {
     return <LoadingScreen onComplete={() => setIsLoading(false)} duration={2500} />;
   }
 
+  // Contact Form Disclaimer Component
+  const ContactDisclaimer = ({ isDark = false }: { isDark?: boolean }) => (
+    <div className={`fixed top-0 left-0 right-0 z-[9998] ${
+      isDark
+        ? 'bg-yellow-900/90 border-b border-yellow-500/30 text-yellow-300'
+        : 'bg-yellow-50/95 border-b border-yellow-300 text-yellow-800'
+    } backdrop-blur-sm`}>
+      <div className="container mx-auto px-4 py-2 text-center">
+        <p className="text-sm">
+          ⚠️ <strong>Notice:</strong> Contact form is currently not working. Please email me directly at{' '}
+          <a
+            href="mailto:vsivareddy.venna@gmail.com"
+            className={`underline font-medium ${
+              isDark ? 'text-yellow-200 hover:text-white' : 'text-yellow-900 hover:text-yellow-700'
+            }`}
+          >
+            vsivareddy.venna@gmail.com
+          </a>
+          {' '}or call{' '}
+          <a
+            href="tel:+919398961541"
+            className={`underline font-medium ${
+              isDark ? 'text-yellow-200 hover:text-white' : 'text-yellow-900 hover:text-yellow-700'
+            }`}
+          >
+            +91 93989 61541
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+
   // New Design - Clean modern design (Default)
   if (currentUI === 'new') {
     return (
       <div className="relative">
+        <ContactDisclaimer />
         <div className="fixed bottom-6 left-6 z-[9999]">
           <button
             onClick={toggleUI}
@@ -52,7 +85,9 @@ export default function Home() {
             classic_mode
           </button>
         </div>
-        <NewDesignLayout />
+        <div className="pt-12">
+          <NewDesignLayout />
+        </div>
       </div>
     );
   }
@@ -61,6 +96,7 @@ export default function Home() {
   if (currentUI === 'v1') {
     return (
       <main className="min-h-screen bg-dark-bg relative">
+        <ContactDisclaimer isDark={true} />
         {/* V1 - V2 - New Toggle Button - Blended with navigation */}
         <div className="fixed bottom-6 left-6 z-[9999]">
           <button
@@ -71,17 +107,19 @@ export default function Home() {
             terminal_mode
           </button>
         </div>
-        <Navigation />
-        <Hero />
-        <About />
-        <Skills />
-        <Timeline />
-        <Projects />
-        <Blog />
-        <ResumeDownload />
-        <Contact />
-        <Footer />
-        <ChatBot />
+        <div className="pt-12">
+          <Navigation />
+          <Hero />
+          <About />
+          <Skills />
+          <Timeline />
+          <Projects />
+          <Blog />
+          <ResumeDownload />
+          <Contact />
+          <Footer />
+          <ChatBot />
+        </div>
       </main>
     );
   }
@@ -89,6 +127,7 @@ export default function Home() {
   // V2 UI - Terminal design
   return (
     <div className="relative">
+      <ContactDisclaimer isDark={true} />
       <div className="fixed bottom-6 left-6 z-[9999]">
         <button
           onClick={toggleUI}
@@ -98,7 +137,9 @@ export default function Home() {
           modern_mode
         </button>
       </div>
-      <InteractiveTerminal onToggleUI={toggleUI} />
+      <div className="pt-12">
+        <InteractiveTerminal onToggleUI={toggleUI} />
+      </div>
     </div>
   );
 }
