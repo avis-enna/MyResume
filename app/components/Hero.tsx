@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowDown, Code, Sparkles } from 'lucide-react'
+import { ArrowDown, Code, Sparkles, Download } from 'lucide-react'
 
 export default function Hero() {
   const containerVariants = {
@@ -122,7 +122,34 @@ export default function Hero() {
             <Code className="inline mr-2" size={20} />
             View My Work
           </motion.a>
-          
+
+          <motion.button
+            onClick={async () => {
+              try {
+                const response = await fetch('/api/resume/download?format=pdf')
+                if (response.ok) {
+                  const blob = await response.blob()
+                  const url = window.URL.createObjectURL(blob)
+                  const a = document.createElement('a')
+                  a.href = url
+                  a.download = 'Venna_Venkata_Siva_Reddy_Resume.html'
+                  document.body.appendChild(a)
+                  a.click()
+                  window.URL.revokeObjectURL(url)
+                  document.body.removeChild(a)
+                }
+              } catch (error) {
+                console.error('Download error:', error)
+              }
+            }}
+            className="px-6 py-3 border border-cyber-purple text-cyber-purple rounded-lg font-semibold transition-all duration-300 hover:bg-cyber-purple hover:text-dark-bg group touch-target w-full sm:w-auto text-center"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Download className="inline mr-2" size={20} />
+            Download Resume
+          </motion.button>
+
           <motion.a
             href="#contact"
             className="px-6 py-3 border border-cyber-blue text-cyber-blue rounded-lg font-semibold transition-all duration-300 hover:bg-cyber-blue hover:text-dark-bg group touch-target w-full sm:w-auto text-center"
