@@ -1,6 +1,8 @@
 import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import PerformanceMonitor from './components/PerformanceMonitor'
+import { AnalyticsProvider } from './components/AnalyticsProvider'
+import AnalyticsDashboard from './components/AnalyticsDashboard'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://my-resume-o2do89dyl-sivavennas-projects.vercel.app'),
@@ -132,8 +134,17 @@ export default function RootLayout({
         />
       </head>
       <body className="overflow-x-hidden">
-        {children}
-        <PerformanceMonitor />
+        <AnalyticsProvider config={{
+          enableGoogleAnalytics: true,
+          enableCustomAnalytics: true,
+          enablePerformanceMonitoring: true,
+          enableUserBehaviorTracking: true,
+          enableErrorTracking: true
+        }}>
+          {children}
+          <PerformanceMonitor />
+          <AnalyticsDashboard />
+        </AnalyticsProvider>
       </body>
     </html>
   )

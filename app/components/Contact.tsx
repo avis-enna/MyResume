@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
 
 export default function Contact() {
@@ -18,6 +18,12 @@ export default function Contact() {
   const [fieldFocus, setFieldFocus] = useState<string | null>(null)
   const [copySuccess, setCopySuccess] = useState('')
   const [formProgress, setFormProgress] = useState(0)
+
+  // Track component view on mount
+  useEffect(() => {
+    // Simulate analytics tracking
+    console.log('📊 Contact component viewed')
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -55,7 +61,15 @@ export default function Contact() {
     setIsSubmitting(true)
     setSubmitMessage('')
     setSubmitType('')
-    
+
+    // Track form submission attempt
+    console.log('📊 Contact form submission attempted', {
+      hasName: !!formData.name,
+      hasEmail: !!formData.email,
+      hasMessage: !!formData.message,
+      formProgress
+    })
+
     try {
       // Method 1: Try EmailJS first (primary method)
       try {
