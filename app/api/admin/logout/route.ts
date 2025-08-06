@@ -35,9 +35,9 @@ export async function POST(request: NextRequest) {
     response.cookies.set('admin-token', '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
       maxAge: 0,
-      path: '/admin'
+      path: '/'
     })
 
     return response

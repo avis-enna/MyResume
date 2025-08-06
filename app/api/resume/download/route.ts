@@ -99,15 +99,14 @@ export async function GET(request: NextRequest) {
     // Generate content based on format
     switch (format) {
       case 'pdf':
-        // Return the professional HTML resume that can be printed as PDF
-        const htmlContent = generateProfessionalResume(resumeData)
+        // For PDF, return HTML with print instructions
+        const htmlContent = generatePrintableResume(resumeData)
 
         return new NextResponse(htmlContent, {
           status: 200,
           headers: {
             ...securityHeaders,
             'Content-Type': 'text/html',
-            'Content-Disposition': `attachment; filename="${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.html"`,
             'Cache-Control': 'no-cache, no-store, must-revalidate'
           }
         })
@@ -360,6 +359,79 @@ export async function DELETE() {
     { error: 'Method not allowed' },
     { status: 405, headers: { ...securityHeaders, 'Allow': 'GET' } }
   )
+}
+
+// Generate printable resume with instructions
+function generatePrintableResume(resumeData: any): string {
+  const professionalHTML = generateProfessionalResume(resumeData)
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Resume - ${resumeData.personalInfo.fullName}</title>
+    <style>
+        .print-instructions {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #1e40af;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .print-instructions button {
+            background: white;
+            color: #1e40af;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .print-instructions button:hover {
+            background: #f3f4f6;
+        }
+        .resume-content {
+            margin-top: 80px;
+        }
+        @media print {
+            .print-instructions {
+                display: none !important;
+            }
+            .resume-content {
+                margin-top: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-instructions">
+        <p><strong>📄 Ready to Print!</strong> Press Ctrl+P (or Cmd+P on Mac) and select "Save as PDF" to download your resume.</p>
+        <button onclick="window.print()">🖨️ Print/Save as PDF</button>
+        <button onclick="window.close()">❌ Close</button>
+    </div>
+    <div class="resume-content">
+        ${professionalHTML.replace('<!DOCTYPE html>', '').replace(/<html[^>]*>/, '').replace('</html>', '').replace(/<head>[\s\S]*?<\/head>/, '').replace(/<body[^>]*>/, '').replace('</body>', '')}
+    </div>
+    <script>
+        // Auto-focus for better UX
+        window.addEventListener('load', function() {
+            // Auto-print after a short delay
+            setTimeout(function() {
+                if (confirm('Would you like to print/save the resume as PDF now?')) {
+                    window.print();
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>`
 }
 
 // Generate professional resume HTML based on your actual resume design

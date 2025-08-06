@@ -1,6 +1,8 @@
 import { AdminUser, AdminSession } from './resume-types'
 import { SignJWT, jwtVerify } from 'jose'
 import bcrypt from 'bcryptjs'
+import fs from 'fs'
+import path from 'path'
 
 // In-memory storage for demo (use database in production)
 const adminUsers: AdminUser[] = [
@@ -14,7 +16,59 @@ const adminUsers: AdminUser[] = [
   }
 ]
 
-const adminSessions: AdminSession[] = []
+// File-based storage for admin sessions
+const SESSIONS_FILE = path.join(process.cwd(), '.admin-sessions.json')
+
+// Load sessions from file
+function loadSessions(): AdminSession[] {
+  try {
+    if (fs.existsSync(SESSIONS_FILE)) {
+      const data = fs.readFileSync(SESSIONS_FILE, 'utf8')
+      return JSON.parse(data)
+    }
+  } catch (error) {
+    console.error('Error loading sessions:', error)
+  }
+  return []
+}
+
+// Save sessions to file
+function saveSessions(sessions: AdminSession[]): void {
+  try {
+    fs.writeFileSync(SESSIONS_FILE, JSON.stringify(sessions, null, 2))
+  } catch (error) {
+    console.error('Error saving sessions:', error)
+  }
+}
+
+// Get current sessions
+function getSessions(): AdminSession[] {
+  return loadSessions()
+}
+
+// Add session
+function addSession(session: AdminSession): void {
+  const sessions = loadSessions()
+  sessions.push(session)
+  saveSessions(sessions)
+}
+
+// Update session
+function updateSession(sessionId: string, updates: Partial<AdminSession>): void {
+  const sessions = loadSessions()
+  const index = sessions.findIndex(s => s.id === sessionId)
+  if (index !== -1) {
+    sessions[index] = { ...sessions[index], ...updates }
+    saveSessions(sessions)
+  }
+}
+
+// Remove session
+function removeSession(sessionId: string): void {
+  const sessions = loadSessions()
+  const filtered = sessions.filter(s => s.id !== sessionId)
+  saveSessions(filtered)
+}
 
 // JWT secret (use environment variable in production)
 const JWT_SECRET = new TextEncoder().encode(
@@ -100,8 +154,8 @@ export async function createAdminSession(
     isActive: true
   }
   
-  adminSessions.push(session)
-  
+  addSession(session)
+
   // Clean up expired sessions
   cleanupExpiredSessions()
   
@@ -117,7 +171,8 @@ export async function verifyAdminSession(token: string): Promise<{ valid: boolea
     const userId = payload.userId as string
     
     // Find session
-    const session = adminSessions.find(s => s.id === sessionId && s.isActive)
+    const sessions = loadSessions()
+    const session = sessions.find(s => s.id === sessionId && s.isActive)
     if (!session || new Date(session.expiresAt) < new Date()) {
       return { valid: false }
     }
@@ -140,9 +195,10 @@ export async function logoutAdminSession(token: string): Promise<boolean> {
     const { payload } = await jwtVerify(token, JWT_SECRET)
     const sessionId = payload.sessionId as string
     
-    const session = adminSessions.find(s => s.id === sessionId)
+    const sessions = loadSessions()
+    const session = sessions.find(s => s.id === sessionId)
     if (session) {
-      session.isActive = false
+      updateSession(sessionId, { isActive: false })
       return true
     }
     
@@ -155,11 +211,11 @@ export async function logoutAdminSession(token: string): Promise<boolean> {
 // Clean up expired sessions
 function cleanupExpiredSessions() {
   const now = new Date()
-  for (let i = adminSessions.length - 1; i >= 0; i--) {
-    if (new Date(adminSessions[i].expiresAt) < now) {
-      adminSessions.splice(i, 1)
-    }
-  }
+  const sessions = loadSessions()
+  const activeSessions = sessions.filter(session =>
+    new Date(session.expiresAt) > now && session.isActive
+  )
+  saveSessions(activeSessions)
 }
 
 // Get admin user by ID
@@ -184,9 +240,10 @@ export async function updateAdminUser(userId: string, updates: Partial<AdminUser
 // Get all active sessions for a user
 export function getActiveSessionsForUser(userId: string): AdminSession[] {
   const now = new Date()
-  return adminSessions.filter(s => 
-    s.userId === userId && 
-    s.isActive && 
+  const sessions = loadSessions()
+  return sessions.filter(s =>
+    s.userId === userId &&
+    s.isActive &&
     new Date(s.expiresAt) > now
   )
 }
@@ -194,9 +251,10 @@ export function getActiveSessionsForUser(userId: string): AdminSession[] {
 // Revoke all sessions for a user
 export function revokeAllSessionsForUser(userId: string): number {
   let revokedCount = 0
-  adminSessions.forEach(session => {
+  const sessions = loadSessions()
+  sessions.forEach(session => {
     if (session.userId === userId && session.isActive) {
-      session.isActive = false
+      updateSession(session.id, { isActive: false })
       revokedCount++
     }
   })

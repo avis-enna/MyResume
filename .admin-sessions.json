@@ -1,0 +1,11 @@
+[
+  {
+    "id": "session_1754462858013_cnvg2417a",
+    "userId": "admin-1",
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uSWQiOiJzZXNzaW9uXzE3NTQ0NjI4NTgwMTNfY252ZzI0MTdhIiwidXNlcklkIjoiYWRtaW4tMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDQ2Mjg1OCwiZXhwIjoxNzU0NTQ5MjU4fQ.SN51qqxBEcbZ97zOXMof-bNNanYoZ8pMT6Mj5GtNYss",
+    "expiresAt": "2025-08-07T06:47:38.013Z",
+    "ipAddress": "::1",
+    "userAgent": "curl/8.7.1",
+    "isActive": false
+  }
+]

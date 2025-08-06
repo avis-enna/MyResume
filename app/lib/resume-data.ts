@@ -1,8 +1,58 @@
 import { ResumeData, defaultResumeData, WorkExperience, Education, Skill, Project, Certification, Achievement, Reference, PersonalInfo, DownloadAnalytics } from './resume-types'
+import fs from 'fs'
+import path from 'path'
 
-// In-memory storage for demo (use database in production)
-let currentResumeData: ResumeData = { ...defaultResumeData }
-const downloadAnalytics: DownloadAnalytics[] = []
+// File-based storage for persistence
+const RESUME_DATA_FILE = path.join(process.cwd(), '.resume-data.json')
+const ANALYTICS_FILE = path.join(process.cwd(), '.download-analytics.json')
+
+// Load resume data from file
+function loadResumeData(): ResumeData {
+  try {
+    if (fs.existsSync(RESUME_DATA_FILE)) {
+      const data = fs.readFileSync(RESUME_DATA_FILE, 'utf8')
+      return JSON.parse(data)
+    }
+  } catch (error) {
+    console.error('Error loading resume data:', error)
+  }
+  return { ...defaultResumeData }
+}
+
+// Save resume data to file
+function saveResumeData(data: ResumeData): void {
+  try {
+    fs.writeFileSync(RESUME_DATA_FILE, JSON.stringify(data, null, 2))
+  } catch (error) {
+    console.error('Error saving resume data:', error)
+  }
+}
+
+// Load analytics from file
+function loadAnalytics(): DownloadAnalytics[] {
+  try {
+    if (fs.existsSync(ANALYTICS_FILE)) {
+      const data = fs.readFileSync(ANALYTICS_FILE, 'utf8')
+      return JSON.parse(data)
+    }
+  } catch (error) {
+    console.error('Error loading analytics:', error)
+  }
+  return []
+}
+
+// Save analytics to file
+function saveAnalytics(analytics: DownloadAnalytics[]): void {
+  try {
+    fs.writeFileSync(ANALYTICS_FILE, JSON.stringify(analytics, null, 2))
+  } catch (error) {
+    console.error('Error saving analytics:', error)
+  }
+}
+
+// Initialize data
+let currentResumeData: ResumeData = loadResumeData()
+let downloadAnalytics: DownloadAnalytics[] = loadAnalytics()
 
 // Get current resume data
 export function getResumeData(): ResumeData {
@@ -17,6 +67,7 @@ export function updateResumeData(updates: Partial<ResumeData>): ResumeData {
     lastUpdated: new Date().toISOString(),
     version: currentResumeData.version + 1
   }
+  saveResumeData(currentResumeData)
   return { ...currentResumeData }
 }
 
@@ -239,11 +290,14 @@ export function trackDownload(
   }
   
   downloadAnalytics.push(analytics)
-  
+
   // Keep only last 1000 downloads
   if (downloadAnalytics.length > 1000) {
     downloadAnalytics.splice(0, downloadAnalytics.length - 1000)
   }
+
+  // Save analytics to file
+  saveAnalytics(downloadAnalytics)
 }
 
 // Get download analytics
