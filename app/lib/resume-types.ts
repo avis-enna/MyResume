@@ -219,62 +219,100 @@ export interface AdminSession {
 export const defaultResumeData: ResumeData = {
   personalInfo: {
     fullName: 'Venna Venkata Siva Reddy',
-    title: 'Backend Developer & Cybersecurity Specialist',
+    title: 'Software Engineer',
     email: 'vsivareddy.venna@gmail.com',
-    phone: '+91-93989-61541',
-    location: 'Bengaluru, Karnataka, India',
-    website: 'https://sivareddy.dev',
-    linkedin: 'https://linkedin.com/in/sivareddy-venna',
+    phone: '+91 93989 61541',
+    location: 'Bengaluru, India',
+    website: 'https://my-resume-eight-beta.vercel.app/',
+    linkedin: 'https://linkedin.com/in/sivavenna',
     github: 'https://github.com/avis-enna',
-    summary: 'Experienced Backend Developer and Cybersecurity Specialist with expertise in Node.js, Python, PostgreSQL, and network security. Passionate about building secure, scalable solutions and protecting digital infrastructure.'
+    summary: 'A results-driven Software Engineer experienced in migrating legacy systems to modern, cloud-native environments. Skilled in backend (Java/Spring Boot), and DevOps with Kubernetes, Docker, and GitOps using Helm and FluxCD. Cross-functional knowledge in network engineering and analytics, passionate about scalable, mission-critical systems.'
   },
   experience: [
     {
       id: '1',
-      company: 'Tech Solutions Inc.',
-      position: 'Senior Backend Developer',
+      company: 'Cisco Systems',
+      position: 'Software Engineer',
       location: 'Bengaluru, India',
-      startDate: '2022-01',
+      startDate: 'Aug 2024',
       endDate: 'Present',
       description: [
-        'Led development of secure backend systems serving 100K+ users',
-        'Implemented robust security measures reducing vulnerabilities by 80%',
-        'Optimized database performance improving response times by 60%'
+        'Orchestrated the migration of IoT Control Center\'s core services from Docker to Kubernetes, significantly improving service reliability and deployment velocity',
+        'As an individual contributor, delivered 7+ Proofs of Concept (POCs) for new features, leveraging AI tools to accelerate the development and validation process',
+        'Managed Kubernetes workloads using Helm and implemented GitOps pipelines via FluxCD for automated, declarative delivery',
+        'Engineered and maintained robust Java Spring Boot microservices for network operations, exposing REST and SOAP APIs',
+        'Implemented Duo-based SSO for secure access control across all internal microservices',
+        'Built and maintained React dashboards for monitoring system metrics and service health',
+        'Fostered collaboration with network engineers to troubleshoot device configurations using CCNA-level skills',
+        'Architected a Jira-integrated analytics tool to model and visualize sprint trends, helping leadership predict team output'
       ],
-      technologies: ['Node.js', 'PostgreSQL', 'Redis', 'Docker', 'AWS'],
+      technologies: ['Java', 'Spring Boot', 'Kubernetes', 'Docker', 'Helm', 'FluxCD', 'React', 'REST APIs', 'SOAP'],
       achievements: [
-        'Reduced system downtime by 95% through proactive monitoring',
-        'Mentored 5 junior developers in security best practices'
+        'Successfully migrated core IoT services to Kubernetes improving reliability',
+        'Delivered 7+ POCs accelerating feature development',
+        'Implemented GitOps pipelines for automated deployment'
       ],
       order: 1
+    },
+    {
+      id: '2',
+      company: 'Cognizant Technology Solutions',
+      position: 'Trainee',
+      location: 'India',
+      startDate: 'Nov 2023',
+      endDate: 'May 2024',
+      description: [
+        'Maintained enterprise mainframe systems with COBOL and JCL',
+        'Automated batch jobs and system reports using JCL enhancements',
+        'Worked with DB2 and VSAM for backend data access and indexing'
+      ],
+      technologies: ['COBOL', 'JCL', 'DB2', 'VSAM', 'Mainframe'],
+      achievements: [
+        'Automated batch job processing improving efficiency',
+        'Enhanced system reports with JCL optimizations'
+      ],
+      order: 2
     }
   ],
   education: [
     {
       id: '1',
-      institution: 'Indian Institute of Technology',
-      degree: 'Bachelor of Technology',
-      field: 'Computer Science and Engineering',
-      location: 'India',
-      startDate: '2018',
-      endDate: '2022',
-      gpa: '8.5/10',
-      honors: ['Dean\'s List', 'Academic Excellence Award'],
-      coursework: ['Data Structures', 'Algorithms', 'Database Systems', 'Network Security'],
+      institution: 'Sir M Visvesvaraya Institute of Technology',
+      degree: 'Bachelor of Engineering',
+      field: 'Electronics & Telecommunication',
+      location: 'Bengaluru, India',
+      startDate: '2019',
+      endDate: '2023',
+      gpa: '',
+      honors: [],
+      coursework: ['Digital Signal Processing', 'Communication Systems', 'Network Engineering', 'Embedded Systems'],
       order: 1
     }
   ],
   skills: {
     technical: [
-      { id: '1', name: 'Node.js', level: 'Expert', category: 'Backend', yearsOfExperience: 4, order: 1 },
-      { id: '2', name: 'Python', level: 'Advanced', category: 'Backend', yearsOfExperience: 3, order: 2 },
-      { id: '3', name: 'PostgreSQL', level: 'Advanced', category: 'Database', yearsOfExperience: 4, order: 3 },
-      { id: '4', name: 'React', level: 'Intermediate', category: 'Frontend', yearsOfExperience: 2, order: 4 }
+      { id: '1', name: 'Java', level: 'Advanced', category: 'Languages', yearsOfExperience: 2, order: 1 },
+      { id: '2', name: 'Python', level: 'Advanced', category: 'Languages', yearsOfExperience: 3, order: 2 },
+      { id: '3', name: 'JavaScript', level: 'Intermediate', category: 'Languages', yearsOfExperience: 2, order: 3 },
+      { id: '4', name: 'Spring Boot', level: 'Advanced', category: 'Backend', yearsOfExperience: 2, order: 4 },
+      { id: '5', name: 'Kubernetes', level: 'Advanced', category: 'Cloud & DevOps', yearsOfExperience: 1, order: 5 },
+      { id: '6', name: 'Docker', level: 'Advanced', category: 'Cloud & DevOps', yearsOfExperience: 2, order: 6 },
+      { id: '7', name: 'Helm', level: 'Intermediate', category: 'Cloud & DevOps', yearsOfExperience: 1, order: 7 },
+      { id: '8', name: 'FluxCD', level: 'Intermediate', category: 'Cloud & DevOps', yearsOfExperience: 1, order: 8 },
+      { id: '9', name: 'REST APIs', level: 'Advanced', category: 'Backend', yearsOfExperience: 2, order: 9 },
+      { id: '10', name: 'SOAP', level: 'Intermediate', category: 'Backend', yearsOfExperience: 1, order: 10 },
+      { id: '11', name: 'SQL', level: 'Advanced', category: 'Databases', yearsOfExperience: 3, order: 11 },
+      { id: '12', name: 'MongoDB', level: 'Intermediate', category: 'Databases', yearsOfExperience: 1, order: 12 },
+      { id: '13', name: 'DB2', level: 'Intermediate', category: 'Databases', yearsOfExperience: 1, order: 13 },
+      { id: '14', name: 'COBOL', level: 'Intermediate', category: 'Languages', yearsOfExperience: 1, order: 14 },
+      { id: '15', name: 'LangChain', level: 'Intermediate', category: 'AI', yearsOfExperience: 1, order: 15 },
+      { id: '16', name: 'TCP/IP', level: 'Advanced', category: 'Networking', yearsOfExperience: 2, order: 16 }
     ],
     soft: [
-      { id: '1', name: 'Leadership', level: 'Advanced', category: 'Management', order: 1 },
-      { id: '2', name: 'Problem Solving', level: 'Expert', category: 'Analytical', order: 2 },
-      { id: '3', name: 'Communication', level: 'Advanced', category: 'Interpersonal', order: 3 }
+      { id: '1', name: 'Agile Methodologies', level: 'Advanced', category: 'Process', order: 1 },
+      { id: '2', name: 'Problem-Solving', level: 'Expert', category: 'Analytical', order: 2 },
+      { id: '3', name: 'Cross-Functional Collaboration', level: 'Advanced', category: 'Interpersonal', order: 3 },
+      { id: '4', name: 'Technical Leadership', level: 'Advanced', category: 'Management', order: 4 }
     ],
     languages: [
       { id: '1', name: 'English', proficiency: 'Fluent', order: 1 },
@@ -285,41 +323,111 @@ export const defaultResumeData: ResumeData = {
   projects: [
     {
       id: '1',
+      title: 'AI Customer Support Chatbot',
+      description: 'Architected a conversational AI agent using LangChain to orchestrate calls to the OpenAI API for intelligent, context-aware responses',
+      technologies: ['LangChain', 'Python', 'OpenAI', 'Django'],
+      startDate: '2024-01',
+      endDate: '2024-03',
+      url: '',
+      github: '',
+      highlights: [
+        'Built intelligent conversational AI using LangChain',
+        'Integrated OpenAI API for context-aware responses',
+        'Implemented Django backend for chat management'
+      ],
+      order: 1
+    },
+    {
+      id: '2',
+      title: 'CVE Lookup Module – NetSecureX Toolkit',
+      description: 'Designed and implemented an async Python module for real-time CVE enumeration, featuring Lucene-based search, CVSS scoring, and severity filtering',
+      technologies: ['Python', 'Asyncio', 'REST APIs', 'Vulners API', 'NVD API', 'JSON'],
+      startDate: '2023-08',
+      endDate: '2023-12',
+      url: '',
+      github: '',
+      highlights: [
+        'Implemented async Python module for CVE enumeration',
+        'Integrated Lucene-based search functionality',
+        'Added CVSS scoring and severity filtering'
+      ],
+      order: 2
+    },
+    {
+      id: '3',
       title: 'Portfolio Website',
       description: 'Interactive portfolio website with analytics and performance monitoring',
       technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
       startDate: '2024-07',
       endDate: 'Present',
-      url: 'https://sivareddy.dev',
+      url: 'https://my-resume-eight-beta.vercel.app/',
       github: 'https://github.com/avis-enna/MyResume',
       highlights: [
         'Implemented comprehensive analytics system',
         'Achieved 95+ Lighthouse performance score',
         'Built responsive design for all devices'
       ],
-      order: 1
+      order: 3
     }
   ],
   certifications: [
     {
       id: '1',
-      name: 'AWS Certified Solutions Architect',
-      issuer: 'Amazon Web Services',
-      issueDate: '2023-06',
-      expiryDate: '2026-06',
-      credentialId: 'AWS-CSA-2023-001',
-      url: 'https://aws.amazon.com/certification/',
+      name: 'Microsoft Certified: Azure Fundamentals (AZ-900)',
+      issuer: 'Microsoft',
+      issueDate: '2023-08',
+      expiryDate: '',
+      credentialId: '',
+      url: 'https://learn.microsoft.com/en-us/certifications/azure-fundamentals/',
       order: 1
+    },
+    {
+      id: '2',
+      name: 'Cisco Certified DevNet Associate (DEVASC)',
+      issuer: 'Cisco',
+      issueDate: '2023-10',
+      expiryDate: '2026-10',
+      credentialId: '',
+      url: 'https://www.cisco.com/c/en/us/training-events/training-certifications/certifications/associate/devnet-associate.html',
+      order: 2
+    },
+    {
+      id: '3',
+      name: 'Cisco Certified Network Associate (CCNA)',
+      issuer: 'Cisco',
+      issueDate: '2023-12',
+      expiryDate: '2026-12',
+      credentialId: '',
+      url: 'https://www.cisco.com/c/en/us/training-events/training-certifications/certifications/associate/ccna.html',
+      order: 3
+    },
+    {
+      id: '4',
+      name: 'Cisco Certified Cybersecurity Associate (CCCA)',
+      issuer: 'Cisco',
+      issueDate: '2024-02',
+      expiryDate: '2027-02',
+      credentialId: '',
+      url: 'https://www.cisco.com/c/en/us/training-events/training-certifications/certifications/associate/cybersecurity-associate.html',
+      order: 4
     }
   ],
   achievements: [
     {
       id: '1',
-      title: 'Best Security Implementation Award',
-      description: 'Recognized for implementing industry-leading security measures',
-      date: '2023-12',
-      issuer: 'Tech Solutions Inc.',
+      title: 'Research Paper Publication',
+      description: '"IoT-Based Continuous Abiotic Factor Monitoring" – Published in IJFMR, May-June 2023',
+      date: '2023-06',
+      issuer: 'International Journal For Multidisciplinary Research (IJFMR)',
       order: 1
+    },
+    {
+      id: '2',
+      title: 'Kubernetes Migration Success',
+      description: 'Successfully migrated IoT Control Center core services from Docker to Kubernetes improving reliability and deployment velocity',
+      date: '2024-10',
+      issuer: 'Cisco Systems',
+      order: 2
     }
   ],
   references: [
