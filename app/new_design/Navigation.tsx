@@ -23,7 +23,19 @@ export default function Navigation() {
             <a href="#contact" className={`text-xs font-light tracking-[0.15em] uppercase transition-colors duration-300 ${isDarkMode ? 'text-gray-400 hover:text-white border-b border-transparent hover:border-white' : 'text-stone-600 hover:text-stone-800 border-b border-transparent hover:border-stone-700'}`}>contact</a>
             <button
               type="button"
-              onClick={() => window.open('/admin/login', '_blank')}
+              onClick={() => {
+                try {
+                  const currentOrigin = window.location.origin;
+                  const adminUrl = `${currentOrigin}/admin/login`;
+                  const newWindow = window.open(adminUrl, '_blank');
+                  if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                    window.location.href = adminUrl;
+                  }
+                } catch (error) {
+                  console.error('Error opening admin portal:', error);
+                  window.location.href = '/admin/login';
+                }
+              }}
               className={`text-xs font-light tracking-[0.15em] uppercase transition-colors duration-300 ${isDarkMode ? 'text-blue-400 hover:text-blue-300 border-b border-transparent hover:border-blue-300' : 'text-blue-600 hover:text-blue-700 border-b border-transparent hover:border-blue-700'}`}
               title="Download Resume - Admin Portal"
             >
@@ -75,7 +87,19 @@ export default function Navigation() {
               <a href="#contact" className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>contact</a>
               <button
                 type="button"
-                onClick={() => window.open('/admin/login', '_blank')}
+                onClick={() => {
+                  try {
+                    const currentOrigin = window.location.origin;
+                    const adminUrl = `${currentOrigin}/admin/login`;
+                    const newWindow = window.open(adminUrl, '_blank');
+                    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                      window.location.href = adminUrl;
+                    }
+                  } catch (error) {
+                    console.error('Error opening admin portal:', error);
+                    window.location.href = '/admin/login';
+                  }
+                }}
                 className={`text-left transition-colors duration-300 ${isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'}`}
               >
                 resume

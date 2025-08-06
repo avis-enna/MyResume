@@ -6,7 +6,30 @@ export default function Footer() {
   const { isDarkMode } = useDarkMode();
 
   const handleSVRClick = () => {
-    window.open('/admin/login', '_blank');
+    try {
+      // Get current origin to ensure proper URL construction
+      const currentOrigin = window.location.origin;
+      const adminUrl = `${currentOrigin}/admin/login`;
+
+      console.log('SVR clicked - attempting to open:', adminUrl);
+
+      // Try to open admin portal
+      const newWindow = window.open(adminUrl, '_blank', 'noopener,noreferrer');
+
+      // Check if popup was blocked or failed
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        console.log('Popup blocked or failed, trying same tab navigation');
+        // Fallback: navigate in same tab if popup blocked
+        window.location.href = adminUrl;
+      } else {
+        console.log('Admin portal opened successfully in new tab');
+      }
+    } catch (error) {
+      console.error('Error opening admin portal:', error);
+      // Ultimate fallback: show alert and try direct navigation
+      alert('Opening Resume Management Portal...');
+      window.location.href = '/admin/login';
+    }
   };
 
   return (
