@@ -5,7 +5,7 @@ import { useDarkMode } from "./DarkModeContext";
 export default function Footer() {
   const { isDarkMode } = useDarkMode();
 
-  const handleSVRClick = () => {
+  const handleSVRClick = async () => {
     try {
       // Get current origin to ensure proper URL construction
       const currentOrigin = window.location.origin;
@@ -13,22 +13,65 @@ export default function Footer() {
 
       console.log('SVR clicked - attempting to open:', adminUrl);
 
-      // Try to open admin portal
-      const newWindow = window.open(adminUrl, '_blank', 'noopener,noreferrer');
+      // First, check if admin route is accessible
+      try {
+        const response = await fetch(`${currentOrigin}/api/admin/verify`, {
+          method: 'GET',
+          credentials: 'include'
+        });
+        console.log('Admin API check response:', response.status);
 
-      // Check if popup was blocked or failed
-      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-        console.log('Popup blocked or failed, trying same tab navigation');
-        // Fallback: navigate in same tab if popup blocked
-        window.location.href = adminUrl;
-      } else {
-        console.log('Admin portal opened successfully in new tab');
+        // If admin API is accessible, try to open admin portal
+        const newWindow = window.open(adminUrl, '_blank', 'noopener,noreferrer');
+
+        // Check if popup was blocked or failed
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+          console.log('Popup blocked or failed, trying same tab navigation');
+          window.location.href = adminUrl;
+        } else {
+          console.log('Admin portal opened successfully in new tab');
+        }
+      } catch (apiError) {
+        console.log('Admin API not accessible, providing alternative options');
+
+        // Show user-friendly options when admin is not available
+        const userChoice = confirm(
+          'Resume Management Portal is not available in this environment.\n\n' +
+          'Would you like to:\n' +
+          '• OK: Download resume directly\n' +
+          '• Cancel: View contact information'
+        );
+
+        if (userChoice) {
+          // Download resume directly
+          window.open(`${currentOrigin}/api/resume/download?format=html`, '_blank');
+        } else {
+          // Scroll to contact section
+          const contactSection = document.getElementById('contact');
+          if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            // Fallback: show contact info
+            alert('Contact: vsivareddy.venna@gmail.com\nPhone: +91 93989 61541');
+          }
+        }
       }
     } catch (error) {
-      console.error('Error opening admin portal:', error);
-      // Ultimate fallback: show alert and try direct navigation
-      alert('Opening Resume Management Portal...');
-      window.location.href = '/admin/login';
+      console.error('Error in SVR click handler:', error);
+
+      // Ultimate fallback: direct resume download
+      const fallbackChoice = confirm(
+        'Unable to access admin portal.\n\n' +
+        'Would you like to download the resume instead?'
+      );
+
+      if (fallbackChoice) {
+        try {
+          window.open(`${window.location.origin}/api/resume/download?format=html`, '_blank');
+        } catch (downloadError) {
+          alert('Please contact vsivareddy.venna@gmail.com for resume access.');
+        }
+      }
     }
   };
 

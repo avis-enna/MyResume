@@ -23,21 +23,36 @@ export default function Navigation() {
             <a href="#contact" className={`text-xs font-light tracking-[0.15em] uppercase transition-colors duration-300 ${isDarkMode ? 'text-gray-400 hover:text-white border-b border-transparent hover:border-white' : 'text-stone-600 hover:text-stone-800 border-b border-transparent hover:border-stone-700'}`}>contact</a>
             <button
               type="button"
-              onClick={() => {
+              onClick={async () => {
                 try {
                   const currentOrigin = window.location.origin;
-                  const adminUrl = `${currentOrigin}/admin/login`;
-                  const newWindow = window.open(adminUrl, '_blank');
-                  if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                    window.location.href = adminUrl;
+
+                  // Check if admin is available, otherwise download directly
+                  try {
+                    const response = await fetch(`${currentOrigin}/api/admin/verify`);
+                    if (response.status === 200 || response.status === 401) {
+                      // Admin API is accessible, try to open admin portal
+                      const adminUrl = `${currentOrigin}/admin/login`;
+                      const newWindow = window.open(adminUrl, '_blank');
+                      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                        window.location.href = adminUrl;
+                      }
+                    } else {
+                      throw new Error('Admin not accessible');
+                    }
+                  } catch (apiError) {
+                    // Admin not available, download resume directly
+                    console.log('Admin not available, downloading resume directly');
+                    window.open(`${currentOrigin}/api/resume/download?format=html`, '_blank');
                   }
                 } catch (error) {
-                  console.error('Error opening admin portal:', error);
-                  window.location.href = '/admin/login';
+                  console.error('Error in resume button:', error);
+                  // Ultimate fallback
+                  window.open(`${window.location.origin}/api/resume/download?format=html`, '_blank');
                 }
               }}
               className={`text-xs font-light tracking-[0.15em] uppercase transition-colors duration-300 ${isDarkMode ? 'text-blue-400 hover:text-blue-300 border-b border-transparent hover:border-blue-300' : 'text-blue-600 hover:text-blue-700 border-b border-transparent hover:border-blue-700'}`}
-              title="Download Resume - Admin Portal"
+              title="Download Resume"
             >
               resume
             </button>
@@ -87,17 +102,30 @@ export default function Navigation() {
               <a href="#contact" className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>contact</a>
               <button
                 type="button"
-                onClick={() => {
+                onClick={async () => {
                   try {
                     const currentOrigin = window.location.origin;
-                    const adminUrl = `${currentOrigin}/admin/login`;
-                    const newWindow = window.open(adminUrl, '_blank');
-                    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                      window.location.href = adminUrl;
+
+                    // Check if admin is available, otherwise download directly
+                    try {
+                      const response = await fetch(`${currentOrigin}/api/admin/verify`);
+                      if (response.status === 200 || response.status === 401) {
+                        // Admin API is accessible
+                        const adminUrl = `${currentOrigin}/admin/login`;
+                        const newWindow = window.open(adminUrl, '_blank');
+                        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                          window.location.href = adminUrl;
+                        }
+                      } else {
+                        throw new Error('Admin not accessible');
+                      }
+                    } catch (apiError) {
+                      // Download resume directly
+                      window.open(`${currentOrigin}/api/resume/download?format=html`, '_blank');
                     }
                   } catch (error) {
-                    console.error('Error opening admin portal:', error);
-                    window.location.href = '/admin/login';
+                    console.error('Error in mobile resume button:', error);
+                    window.open(`${window.location.origin}/api/resume/download?format=html`, '_blank');
                   }
                 }}
                 className={`text-left transition-colors duration-300 ${isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'}`}
