@@ -7,5 +7,15 @@
     "userAgent": "curl/8.7.1",
     "ipAddress": "::1",
     "sessionId": "anonymous"
+  },
+  {
+    "id": "download_1754463335260_memuhjq3x",
+    "timestamp": "2025-08-06T06:55:35.260Z",
+    "format": "pdf",
+    "template": "modern-professional",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+    "ipAddress": "::1",
+    "referrer": "http://localhost:3002/admin/dashboard",
+    "sessionId": "anonymous"
   }
 ]
