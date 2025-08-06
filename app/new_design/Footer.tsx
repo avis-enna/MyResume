@@ -12,6 +12,7 @@ export default function Footer() {
       const adminUrl = `${currentOrigin}/admin/login`;
 
       console.log('SVR clicked - attempting to open:', adminUrl);
+      console.log('SVR button updated and working - Version 2.0');
 
       // First, check if admin route is accessible
       try {
@@ -97,7 +98,7 @@ export default function Footer() {
                   : 'text-black hover:text-blue-600 hover:bg-blue-600/10 active:bg-blue-600/20 hover:shadow-blue-600/20'
                 }
               `}
-              title="🎯 Click here for Resume Management Portal"
+              title="🎯 Click here for Resume Management Portal - Updated"
             >
               <span className="flex items-center gap-1">
                 SVR.

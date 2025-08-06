@@ -25,6 +25,7 @@ export default function Navigation() {
               type="button"
               onClick={async () => {
                 try {
+                  console.log('Resume button clicked - Version 2.0');
                   const currentOrigin = window.location.origin;
 
                   // Check if admin is available, otherwise download directly
