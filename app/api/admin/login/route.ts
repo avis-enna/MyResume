@@ -88,13 +88,16 @@ export async function POST(request: NextRequest) {
     )
 
     // Set HTTP-only cookie for token
-    response.cookies.set('admin-token', token, {
+    const cookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
       maxAge: 24 * 60 * 60, // 24 hours
-      path: '/admin'
-    })
+      path: '/'
+    }
+
+    console.log('Setting cookie with options:', cookieOptions)
+    response.cookies.set('admin-token', token, cookieOptions as any)
 
     return response
 

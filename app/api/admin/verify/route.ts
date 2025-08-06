@@ -15,7 +15,12 @@ export async function GET(request: NextRequest) {
     // Get token from cookie
     const token = request.cookies.get('admin-token')?.value
 
+    // Debug logging
+    console.log('Verify request - Token present:', !!token)
+    console.log('Verify request - All cookies:', request.cookies.getAll().map(c => c.name))
+
     if (!token) {
+      console.log('Verify failed - No token provided')
       return NextResponse.json(
         { valid: false, error: 'No token provided' },
         { status: 401, headers: securityHeaders }
@@ -25,7 +30,10 @@ export async function GET(request: NextRequest) {
     // Verify session
     const verification = await verifyAdminSession(token)
 
+    console.log('Verify result:', { valid: verification.valid, hasUser: !!verification.user })
+
     if (!verification.valid || !verification.user) {
+      console.log('Verify failed - Invalid session or no user')
       return NextResponse.json(
         { valid: false, error: 'Invalid or expired session' },
         { status: 401, headers: securityHeaders }

@@ -23,16 +23,22 @@ export default function AdminLogin() {
   const checkAuthStatus = async () => {
     try {
       const response = await fetch('/api/admin/verify', {
-        credentials: 'include'
+        credentials: 'include',
+        cache: 'no-cache'
       })
-      
+
+      console.log('Login page auth check - Response status:', response.status)
+
       if (response.ok) {
         const data = await response.json()
+        console.log('Login page auth check - Data:', { valid: data.valid })
         if (data.valid) {
+          console.log('Already authenticated, redirecting to dashboard')
           router.push('/admin/dashboard')
         }
       }
     } catch (error) {
+      console.log('Login page auth check failed:', error)
       // Not logged in, stay on login page
     }
   }

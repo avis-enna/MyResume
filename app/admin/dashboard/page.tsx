@@ -64,22 +64,29 @@ export default function AdminDashboard() {
 
   const checkAuthAndLoadData = async () => {
     try {
-      // Check authentication
+      // Check authentication with retry mechanism
       const authResponse = await fetch('/api/admin/verify', {
-        credentials: 'include'
+        credentials: 'include',
+        cache: 'no-cache'
       })
-      
+
+      console.log('Auth response status:', authResponse.status)
+
       if (!authResponse.ok) {
+        console.log('Auth response not ok, redirecting to login')
         router.push('/admin/login')
         return
       }
-      
+
       const authData = await authResponse.json()
+      console.log('Auth data:', { valid: authData.valid, hasUser: !!authData.user })
+
       if (!authData.valid) {
+        console.log('Auth data not valid, redirecting to login')
         router.push('/admin/login')
         return
       }
-      
+
       setUser(authData.user)
       
       // Load resume data
@@ -97,7 +104,10 @@ export default function AdminDashboard() {
       
     } catch (error) {
       console.error('Error loading dashboard data:', error)
-      router.push('/admin/login')
+      // Add delay to prevent rapid redirects
+      setTimeout(() => {
+        router.push('/admin/login')
+      }, 1000)
     } finally {
       setIsLoading(false)
     }
