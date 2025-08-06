@@ -17,5 +17,24 @@
     "ipAddress": "::1",
     "referrer": "http://localhost:3002/admin/dashboard",
     "sessionId": "anonymous"
+  },
+  {
+    "id": "download_1754470500716_c4t6p91jj",
+    "timestamp": "2025-08-06T08:55:00.716Z",
+    "format": "html",
+    "template": "modern-professional",
+    "userAgent": "curl/8.7.1",
+    "ipAddress": "::1",
+    "sessionId": "anonymous"
+  },
+  {
+    "id": "download_1754470608515_mnhoqi4wn",
+    "timestamp": "2025-08-06T08:56:48.515Z",
+    "format": "pdf",
+    "template": "modern-professional",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+    "ipAddress": "::1",
+    "referrer": "http://localhost:3003/admin/dashboard",
+    "sessionId": "anonymous"
   }
 ]

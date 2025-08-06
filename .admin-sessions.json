@@ -1,9 +1,18 @@
 [
   {
-    "id": "session_1754463327424_xsxwodny9",
+    "id": "session_1754470453289_up05lmunx",
     "userId": "admin-1",
-    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uSWQiOiJzZXNzaW9uXzE3NTQ0NjMzMjc0MjRfeHN4d29kbnk5IiwidXNlcklkIjoiYWRtaW4tMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDQ2MzMyNywiZXhwIjoxNzU0NTQ5NzI3fQ.2QenDT0T_Ye_9uHqBmq1sY7SN-1hc9WqSgeHmlr4Q_o",
-    "expiresAt": "2025-08-07T06:55:27.424Z",
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uSWQiOiJzZXNzaW9uXzE3NTQ0NzA0NTMyODlfdXAwNWxtdW54IiwidXNlcklkIjoiYWRtaW4tMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDQ3MDQ1MywiZXhwIjoxNzU0NTU2ODUzfQ.2IL3O4O7ZcjZKOVPftUG6Y5j8sxwol2odUa0pW9TK68",
+    "expiresAt": "2025-08-07T08:54:13.289Z",
+    "ipAddress": "::1",
+    "userAgent": "curl/8.7.1",
+    "isActive": true
+  },
+  {
+    "id": "session_1754470588739_obr6jx6z6",
+    "userId": "admin-1",
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uSWQiOiJzZXNzaW9uXzE3NTQ0NzA1ODg3Mzlfb2JyNmp4Nno2IiwidXNlcklkIjoiYWRtaW4tMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDQ3MDU4OCwiZXhwIjoxNzU0NTU2OTg4fQ.d98DiJ-Uyt7sT6IfgvpWnJ-b0yzq01DNZ72q5tVO97c",
+    "expiresAt": "2025-08-07T08:56:28.739Z",
     "ipAddress": "::1",
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
     "isActive": true
