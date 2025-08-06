@@ -1,34 +1,43 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Download, FileText, Eye, Share2 } from 'lucide-react';
+import { Download, FileText, Eye, Share2 } from 'lucide-react'
 import { useState } from 'react';
 
 export default function ResumeDownload() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadCount, setDownloadCount] = useState(247); // Mock download count
 
-  const handleDownload = async () => {
+  const handleDownload = async (format = 'html') => {
     setIsDownloading(true);
-    
-    // Simulate download process
-    setTimeout(() => {
-      // Create a link element and trigger download
-      const link = document.createElement('a');
-      link.href = '/Venna_Venkata_Siva_Reddy_Resume_Updated (1).docx';
-      link.download = 'Venna_Venkata_Siva_Reddy_Resume.docx';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      setDownloadCount(prev => prev + 1);
+
+    try {
+      const response = await fetch(`/api/resume/download?format=${format}`);
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `Venna_Venkata_Siva_Reddy_Resume.${format === 'html' ? 'html' : format}`;
+        document.body.appendChild(link);
+        link.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+
+        setDownloadCount(prev => prev + 1);
+      } else {
+        console.error('Download failed');
+      }
+    } catch (error) {
+      console.error('Download error:', error);
+    } finally {
       setIsDownloading(false);
-    }, 1000);
+    }
   };
 
   const handlePreview = () => {
     // Open resume in new tab for preview
-    window.open('/Venna_Venkata_Siva_Reddy_Resume_Updated (1).docx', '_blank');
+    window.open('/api/resume/download?format=html', '_blank');
   };
 
   const handleShare = async () => {
@@ -96,30 +105,43 @@ export default function ResumeDownload() {
             </div>
 
             <div className="space-y-3">
-              {/* Download Button */}
-              <motion.button
-                onClick={handleDownload}
-                disabled={isDownloading}
-                className="w-full cyber-button flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                whileHover={{ scale: isDownloading ? 1 : 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {isDownloading ? (
-                  <>
-                    <motion.div
-                      className="w-4 h-4 border-2 border-dark-bg border-t-transparent rounded-full"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    />
-                    <span>Downloading...</span>
-                  </>
-                ) : (
-                  <>
-                    <Download size={16} />
-                    <span>Download Resume</span>
-                  </>
-                )}
-              </motion.button>
+              {/* Download Buttons */}
+              <div className="grid grid-cols-2 gap-2">
+                <motion.button
+                  onClick={() => handleDownload('html')}
+                  disabled={isDownloading}
+                  className="cyber-button flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                  whileHover={{ scale: isDownloading ? 1 : 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {isDownloading ? (
+                    <>
+                      <motion.div
+                        className="w-3 h-3 border-2 border-dark-bg border-t-transparent rounded-full"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      />
+                      <span>Downloading...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Download size={14} />
+                      <span>HTML</span>
+                    </>
+                  )}
+                </motion.button>
+
+                <motion.button
+                  onClick={() => handleDownload('txt')}
+                  disabled={isDownloading}
+                  className="px-4 py-2 border border-cyber-blue text-cyber-blue rounded-lg hover:bg-cyber-blue hover:text-dark-bg transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                  whileHover={{ scale: isDownloading ? 1 : 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FileText size={14} />
+                  <span>TXT</span>
+                </motion.button>
+              </div>
 
               {/* Secondary Actions */}
               <div className="flex space-x-2">

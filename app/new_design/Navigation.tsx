@@ -21,8 +21,17 @@ export default function Navigation() {
             <a href="#experience" className={`text-xs font-light tracking-[0.15em] uppercase transition-colors duration-300 ${isDarkMode ? 'text-gray-400 hover:text-white border-b border-transparent hover:border-white' : 'text-stone-600 hover:text-stone-800 border-b border-transparent hover:border-stone-700'}`}>experience</a>
             <a href="#projects" className={`text-xs font-light tracking-[0.15em] uppercase transition-colors duration-300 ${isDarkMode ? 'text-gray-400 hover:text-white border-b border-transparent hover:border-white' : 'text-stone-600 hover:text-stone-800 border-b border-transparent hover:border-stone-700'}`}>portfolio</a>
             <a href="#contact" className={`text-xs font-light tracking-[0.15em] uppercase transition-colors duration-300 ${isDarkMode ? 'text-gray-400 hover:text-white border-b border-transparent hover:border-white' : 'text-stone-600 hover:text-stone-800 border-b border-transparent hover:border-stone-700'}`}>contact</a>
+            <button
+              type="button"
+              onClick={() => window.open('/admin/login', '_blank')}
+              className={`text-xs font-light tracking-[0.15em] uppercase transition-colors duration-300 ${isDarkMode ? 'text-blue-400 hover:text-blue-300 border-b border-transparent hover:border-blue-300' : 'text-blue-600 hover:text-blue-700 border-b border-transparent hover:border-blue-700'}`}
+              title="Download Resume - Admin Portal"
+            >
+              resume
+            </button>
             <div className="flex items-center space-x-3">
-              <button 
+              <button
+                type="button"
                 onClick={toggleDarkMode}
                 className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-100 hover:bg-gray-200'}`}
                 title="Toggle dark mode"
@@ -43,6 +52,7 @@ export default function Navigation() {
 
           {/* Mobile Menu Button */}
           <button
+            type="button"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={`md:hidden transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}
             aria-label="Toggle menu"
@@ -63,11 +73,19 @@ export default function Navigation() {
               <a href="#experience" className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>experience</a>
               <a href="#projects" className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>projects</a>
               <a href="#contact" className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>contact</a>
+              <button
+                type="button"
+                onClick={() => window.open('/admin/login', '_blank')}
+                className={`text-left transition-colors duration-300 ${isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'}`}
+              >
+                resume
+              </button>
               <div className="flex items-center space-x-3 pt-4">
                 <span className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                   {isDarkMode ? 'light mode' : 'dark mode'}
                 </span>
-                <button 
+                <button
+                  type="button"
                   onClick={toggleDarkMode}
                   className={`w-12 h-6 rounded-full relative transition-colors duration-300 ${isDarkMode ? 'bg-blue-600' : 'bg-gray-200'}`}
                   title="Toggle dark mode"
