@@ -1,18 +1,27 @@
 [
   {
-    "id": "session_1754470453289_up05lmunx",
+    "id": "session_1754471673542_cf5n6c92x",
     "userId": "admin-1",
-    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uSWQiOiJzZXNzaW9uXzE3NTQ0NzA0NTMyODlfdXAwNWxtdW54IiwidXNlcklkIjoiYWRtaW4tMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDQ3MDQ1MywiZXhwIjoxNzU0NTU2ODUzfQ.2IL3O4O7ZcjZKOVPftUG6Y5j8sxwol2odUa0pW9TK68",
-    "expiresAt": "2025-08-07T08:54:13.289Z",
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uSWQiOiJzZXNzaW9uXzE3NTQ0NzE2NzM1NDJfY2Y1bjZjOTJ4IiwidXNlcklkIjoiYWRtaW4tMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDQ3MTY3MywiZXhwIjoxNzU0NTU4MDczfQ.UGhIzwT1DSfDJ-iJRymCgZhLj-P25P4FQOeFeI6X7rg",
+    "expiresAt": "2025-08-07T09:14:33.542Z",
     "ipAddress": "::1",
     "userAgent": "curl/8.7.1",
     "isActive": true
   },
   {
-    "id": "session_1754470588739_obr6jx6z6",
+    "id": "session_1754471738262_euhr999f8",
     "userId": "admin-1",
-    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uSWQiOiJzZXNzaW9uXzE3NTQ0NzA1ODg3Mzlfb2JyNmp4Nno2IiwidXNlcklkIjoiYWRtaW4tMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDQ3MDU4OCwiZXhwIjoxNzU0NTU2OTg4fQ.d98DiJ-Uyt7sT6IfgvpWnJ-b0yzq01DNZ72q5tVO97c",
-    "expiresAt": "2025-08-07T08:56:28.739Z",
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uSWQiOiJzZXNzaW9uXzE3NTQ0NzE3MzgyNjJfZXVocjk5OWY4IiwidXNlcklkIjoiYWRtaW4tMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDQ3MTczOCwiZXhwIjoxNzU0NTU4MTM4fQ.I5xMTIrxdivnxl8_iQHV7FQINSWOzVaGYI5H-5-2x-8",
+    "expiresAt": "2025-08-07T09:15:38.262Z",
+    "ipAddress": "::1",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+    "isActive": true
+  },
+  {
+    "id": "session_1754472064579_ucehrib5i",
+    "userId": "admin-1",
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uSWQiOiJzZXNzaW9uXzE3NTQ0NzIwNjQ1NzlfdWNlaHJpYjVpIiwidXNlcklkIjoiYWRtaW4tMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDQ3MjA2NCwiZXhwIjoxNzU0NTU4NDY0fQ.pvLozr08IKS5tgVt2R6uMDojgGuQFq2GwhAUhwjNu0E",
+    "expiresAt": "2025-08-07T09:21:04.579Z",
     "ipAddress": "::1",
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
     "isActive": true

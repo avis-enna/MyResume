@@ -94,6 +94,57 @@ export default function AdminLogin() {
     })
   }
 
+  // Add a fallback script for when React doesn't load
+  const fallbackScript = `
+    function fillDemoCredentialsFallback() {
+      const emailInput = document.querySelector('input[name="email"]');
+      const passwordInput = document.querySelector('input[name="password"]');
+      if (emailInput) emailInput.value = 'admin@sivareddy.dev';
+      if (passwordInput) passwordInput.value = 'SecureAdmin2024!';
+    }
+
+    function handleLoginFallback(event) {
+      event.preventDefault();
+      const emailInput = document.querySelector('input[name="email"]');
+      const passwordInput = document.querySelector('input[name="password"]');
+      const email = emailInput?.value;
+      const password = passwordInput?.value;
+
+      fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ email, password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.href = '/admin/dashboard';
+        } else {
+          alert('Login failed: ' + (data.error || 'Unknown error'));
+        }
+      })
+      .catch(error => {
+        alert('Network error: ' + error.message);
+      });
+    }
+
+    // Check if React is loaded, if not use fallback
+    if (typeof React === 'undefined') {
+      console.log('React not loaded, using fallback JavaScript');
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        if (form) {
+          form.addEventListener('submit', handleLoginFallback);
+        }
+        const demoBtn = document.querySelector('[data-demo-btn]');
+        if (demoBtn) {
+          demoBtn.addEventListener('click', fillDemoCredentialsFallback);
+        }
+      });
+    }
+  `
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -207,6 +258,7 @@ export default function AdminLogin() {
               <button
                 type="button"
                 onClick={fillDemoCredentials}
+                data-demo-btn="true"
                 className="text-blue-400 hover:text-blue-300 text-sm underline"
               >
                 Fill Demo Credentials
@@ -231,6 +283,9 @@ export default function AdminLogin() {
           </div>
         </div>
       </div>
+
+      {/* Fallback script for when React doesn't load */}
+      <script dangerouslySetInnerHTML={{ __html: fallbackScript }} />
     </div>
   )
 }
