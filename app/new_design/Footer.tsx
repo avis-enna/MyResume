@@ -79,14 +79,35 @@ export default function Footer() {
     <footer className={`py-12 border-t transition-colors duration-300 ${isDarkMode ? 'bg-black border-gray-800' : 'bg-white border-gray-100'}`}>
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center">
-          <button
-            type="button"
-            onClick={handleSVRClick}
-            className={`text-2xl font-light transition-all duration-300 hover:scale-105 cursor-pointer ${isDarkMode ? 'text-white hover:text-blue-400' : 'text-black hover:text-blue-600'}`}
-            title="Admin Portal - Resume Management"
-          >
-            SVR.
-          </button>
+          <div className="flex flex-col items-start">
+            <button
+              type="button"
+              onClick={handleSVRClick}
+              className={`
+                text-2xl font-light transition-all duration-300
+                cursor-pointer select-none
+                px-3 py-2 rounded-lg
+                border-2 border-transparent
+                hover:scale-105 hover:border-current hover:shadow-lg
+                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+                active:scale-95
+                transform-gpu
+                ${isDarkMode
+                  ? 'text-white hover:text-blue-400 hover:bg-blue-400/10 active:bg-blue-400/20 hover:shadow-blue-400/20'
+                  : 'text-black hover:text-blue-600 hover:bg-blue-600/10 active:bg-blue-600/20 hover:shadow-blue-600/20'
+                }
+              `}
+              title="🎯 Click here for Resume Management Portal"
+            >
+              <span className="flex items-center gap-1">
+                SVR.
+                <span className="text-xs opacity-60">📄</span>
+              </span>
+            </button>
+            <span className={`text-xs mt-1 transition-colors duration-300 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+              resume portal
+            </span>
+          </div>
           <div className="text-right">
             <p className={`text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>design & coding by me</p>
           </div>
