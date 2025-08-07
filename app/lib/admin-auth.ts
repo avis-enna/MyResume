@@ -16,28 +16,41 @@ const adminUsers: AdminUser[] = [
   }
 ]
 
-// File-based storage for admin sessions
+// Hybrid storage for admin sessions (file + in-memory for Vercel)
 const SESSIONS_FILE = path.join(process.cwd(), '.admin-sessions.json')
+let inMemorySessions: AdminSession[] = []
 
-// Load sessions from file
+// Load sessions from file with fallback to in-memory
 function loadSessions(): AdminSession[] {
   try {
+    // Try file system first
     if (fs.existsSync(SESSIONS_FILE)) {
       const data = fs.readFileSync(SESSIONS_FILE, 'utf8')
-      return JSON.parse(data)
+      const fileSessions = JSON.parse(data)
+      console.log('Loaded sessions from file:', fileSessions.length)
+      return fileSessions
     }
   } catch (error) {
-    console.error('Error loading sessions:', error)
+    console.error('Error loading sessions from file:', error)
   }
-  return []
+
+  // Fallback to in-memory sessions (important for Vercel)
+  console.log('Using in-memory sessions:', inMemorySessions.length)
+  return inMemorySessions
 }
 
-// Save sessions to file
+// Save sessions to both file and memory
 function saveSessions(sessions: AdminSession[]): void {
+  // Always save to memory first (critical for Vercel)
+  inMemorySessions = [...sessions]
+  console.log('Saved sessions to memory:', sessions.length)
+
+  // Try to save to file (may not persist in Vercel but worth trying)
   try {
     fs.writeFileSync(SESSIONS_FILE, JSON.stringify(sessions, null, 2))
+    console.log('Saved sessions to file successfully')
   } catch (error) {
-    console.error('Error saving sessions:', error)
+    console.error('Error saving sessions to file (using memory fallback):', error)
   }
 }
 

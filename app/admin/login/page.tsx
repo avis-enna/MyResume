@@ -94,21 +94,41 @@ export default function AdminLogin() {
     })
   }
 
-  // Add a fallback script for when React doesn't load
+  // Enhanced fallback script for Vercel deployment
   const fallbackScript = `
+    console.log('Fallback script loaded - checking environment');
+
     function fillDemoCredentialsFallback() {
+      console.log('Filling demo credentials via fallback');
       const emailInput = document.querySelector('input[name="email"]');
       const passwordInput = document.querySelector('input[name="password"]');
       if (emailInput) emailInput.value = 'admin@sivareddy.dev';
       if (passwordInput) passwordInput.value = 'SecureAdmin2024!';
+      console.log('Demo credentials filled');
     }
 
     function handleLoginFallback(event) {
+      console.log('Login fallback triggered');
       event.preventDefault();
+
       const emailInput = document.querySelector('input[name="email"]');
       const passwordInput = document.querySelector('input[name="password"]');
       const email = emailInput?.value;
       const password = passwordInput?.value;
+
+      if (!email || !password) {
+        alert('Please enter email and password');
+        return;
+      }
+
+      console.log('Attempting login with fallback method');
+
+      // Show loading state
+      const submitBtn = document.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing in...';
+      }
 
       fetch('/api/admin/login', {
         method: 'POST',
@@ -116,32 +136,71 @@ export default function AdminLogin() {
         credentials: 'include',
         body: JSON.stringify({ email, password })
       })
-      .then(response => response.json())
+      .then(response => {
+        console.log('Login response status:', response.status);
+        return response.json();
+      })
       .then(data => {
+        console.log('Login response data:', data);
         if (data.success) {
-          window.location.href = '/admin/dashboard';
+          console.log('Login successful, redirecting to dashboard');
+          // Force a hard redirect to avoid any React router issues
+          window.location.replace('/admin/dashboard');
         } else {
+          console.error('Login failed:', data.error);
           alert('Login failed: ' + (data.error || 'Unknown error'));
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Sign In';
+          }
         }
       })
       .catch(error => {
+        console.error('Login network error:', error);
         alert('Network error: ' + error.message);
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Sign In';
+        }
       });
     }
 
-    // Check if React is loaded, if not use fallback
+    // Enhanced initialization for Vercel deployment
+    function initializeFallback() {
+      console.log('Initializing fallback handlers');
+      const form = document.querySelector('form');
+      if (form) {
+        console.log('Form found, attaching fallback handler');
+        form.addEventListener('submit', handleLoginFallback);
+      } else {
+        console.log('Form not found');
+      }
+
+      const demoBtn = document.querySelector('[data-demo-btn]');
+      if (demoBtn) {
+        console.log('Demo button found, attaching fallback handler');
+        demoBtn.addEventListener('click', fillDemoCredentialsFallback);
+      } else {
+        console.log('Demo button not found');
+      }
+    }
+
+    // Multiple initialization strategies for different environments
     if (typeof React === 'undefined') {
       console.log('React not loaded, using fallback JavaScript');
-      document.addEventListener('DOMContentLoaded', function() {
-        const form = document.querySelector('form');
-        if (form) {
-          form.addEventListener('submit', handleLoginFallback);
-        }
-        const demoBtn = document.querySelector('[data-demo-btn]');
-        if (demoBtn) {
-          demoBtn.addEventListener('click', fillDemoCredentialsFallback);
-        }
-      });
+
+      // Try immediate initialization
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeFallback);
+      } else {
+        initializeFallback();
+      }
+
+      // Also try after a short delay for Vercel
+      setTimeout(initializeFallback, 100);
+      setTimeout(initializeFallback, 500);
+    } else {
+      console.log('React is loaded, fallback not needed');
     }
   `
 

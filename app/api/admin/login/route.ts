@@ -12,11 +12,15 @@ const securityHeaders = {
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('Admin login attempt started')
+
     // Get client information
-    const clientIP = request.headers.get('x-forwarded-for') || 
-                    request.headers.get('x-real-ip') || 
+    const clientIP = request.headers.get('x-forwarded-for') ||
+                    request.headers.get('x-real-ip') ||
                     'unknown'
     const userAgent = request.headers.get('user-agent') || 'unknown'
+
+    console.log('Client info:', { clientIP, userAgent: userAgent.substring(0, 50) })
 
     // Check rate limiting
     const rateLimit = checkRateLimit(clientIP)
