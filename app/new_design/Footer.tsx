@@ -5,6 +5,57 @@ import { useDarkMode } from "./DarkModeContext";
 export default function Footer() {
   const { isDarkMode } = useDarkMode();
 
+  // Fallback script for SVR button when React doesn't load
+  const svrFallbackScript = `
+    console.log('SVR fallback script loaded');
+
+    function handleSVRClickFallback() {
+      console.log('SVR fallback click triggered');
+      const currentOrigin = window.location.origin;
+      const adminUrl = currentOrigin + '/admin/login';
+
+      // Try to open admin portal
+      try {
+        fetch(currentOrigin + '/api/admin/verify')
+          .then(response => {
+            console.log('Admin API check:', response.status);
+            const newWindow = window.open(adminUrl, '_blank');
+            if (!newWindow || newWindow.closed) {
+              window.location.href = adminUrl;
+            }
+          })
+          .catch(() => {
+            // Fallback to resume download
+            window.open(currentOrigin + '/api/resume/download?format=html', '_blank');
+          });
+      } catch (error) {
+        console.error('SVR fallback error:', error);
+        window.open(currentOrigin + '/api/resume/download?format=html', '_blank');
+      }
+    }
+
+    // Initialize SVR fallback
+    function initSVRFallback() {
+      const svrButton = document.querySelector('[data-svr-button]');
+      if (svrButton) {
+        console.log('SVR button found, attaching fallback');
+        svrButton.addEventListener('click', handleSVRClickFallback);
+      }
+    }
+
+    // Multiple initialization strategies
+    if (typeof React === 'undefined') {
+      console.log('React not loaded, using SVR fallback');
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSVRFallback);
+      } else {
+        initSVRFallback();
+      }
+      setTimeout(initSVRFallback, 100);
+      setTimeout(initSVRFallback, 500);
+    }
+  `;
+
   const handleSVRClick = async () => {
     try {
       // Get current origin to ensure proper URL construction
@@ -84,6 +135,7 @@ export default function Footer() {
             <button
               type="button"
               onClick={handleSVRClick}
+              data-svr-button="true"
               className={`
                 text-2xl font-light transition-all duration-300
                 cursor-pointer select-none
@@ -114,6 +166,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {/* SVR Fallback script for when React doesn't load */}
+      <script dangerouslySetInnerHTML={{ __html: svrFallbackScript }} />
     </footer>
   );
 }
