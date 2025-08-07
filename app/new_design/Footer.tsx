@@ -5,54 +5,83 @@ import { useDarkMode } from "./DarkModeContext";
 export default function Footer() {
   const { isDarkMode } = useDarkMode();
 
-  // Fallback script for SVR button when React doesn't load
+  // Enhanced fallback script that works in all environments
   const svrFallbackScript = `
-    console.log('SVR fallback script loaded');
+    console.log('SVR fallback script loaded - Universal version');
 
-    function handleSVRClickFallback() {
+    function handleSVRClickFallback(event) {
       console.log('SVR fallback click triggered');
+      event.preventDefault();
+      event.stopPropagation();
+
       const currentOrigin = window.location.origin;
       const adminUrl = currentOrigin + '/admin/login';
 
-      // Try to open admin portal
+      // Always try to open admin portal first
       try {
-        fetch(currentOrigin + '/api/admin/verify')
-          .then(response => {
-            console.log('Admin API check:', response.status);
-            const newWindow = window.open(adminUrl, '_blank');
-            if (!newWindow || newWindow.closed) {
-              window.location.href = adminUrl;
-            }
-          })
-          .catch(() => {
-            // Fallback to resume download
-            window.open(currentOrigin + '/api/resume/download?format=html', '_blank');
-          });
+        console.log('Attempting to open admin portal:', adminUrl);
+        const newWindow = window.open(adminUrl, '_blank');
+
+        // If popup blocked, try same tab
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+          console.log('Popup blocked, using same tab navigation');
+          window.location.href = adminUrl;
+        } else {
+          console.log('Admin portal opened in new tab');
+        }
       } catch (error) {
         console.error('SVR fallback error:', error);
-        window.open(currentOrigin + '/api/resume/download?format=html', '_blank');
+        // Ultimate fallback - try resume download
+        try {
+          window.open(currentOrigin + '/api/resume/download?format=html', '_blank');
+        } catch (downloadError) {
+          console.error('Download fallback failed:', downloadError);
+          alert('Unable to open admin portal. Please try refreshing the page.');
+        }
       }
     }
 
-    // Initialize SVR fallback
+    // Universal initialization that works with or without React
     function initSVRFallback() {
-      const svrButton = document.querySelector('[data-svr-button]');
-      if (svrButton) {
-        console.log('SVR button found, attaching fallback');
-        svrButton.addEventListener('click', handleSVRClickFallback);
-      }
+      console.log('Initializing SVR fallback handlers');
+      const svrButtons = document.querySelectorAll('[data-svr-button], button[data-svr-button]');
+
+      svrButtons.forEach((button, index) => {
+        console.log('Found SVR button', index + 1, '- attaching fallback handler');
+
+        // Remove any existing listeners to avoid duplicates
+        button.removeEventListener('click', handleSVRClickFallback);
+
+        // Add fallback listener
+        button.addEventListener('click', handleSVRClickFallback, true);
+
+        // Also add as onclick for maximum compatibility
+        button.onclick = handleSVRClickFallback;
+      });
+
+      console.log('SVR fallback initialization complete -', svrButtons.length, 'buttons found');
     }
 
-    // Multiple initialization strategies
-    if (typeof React === 'undefined') {
-      console.log('React not loaded, using SVR fallback');
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSVRFallback);
-      } else {
-        initSVRFallback();
-      }
-      setTimeout(initSVRFallback, 100);
-      setTimeout(initSVRFallback, 500);
+    // Always initialize fallback (works with or without React)
+    console.log('Document ready state:', document.readyState);
+
+    // Immediate initialization
+    initSVRFallback();
+
+    // DOM ready initialization
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSVRFallback);
+    }
+
+    // Delayed initializations for dynamic content
+    setTimeout(initSVRFallback, 100);
+    setTimeout(initSVRFallback, 500);
+    setTimeout(initSVRFallback, 1000);
+    setTimeout(initSVRFallback, 2000);
+
+    // Watch for React hydration completion
+    if (typeof window !== 'undefined') {
+      window.addEventListener('load', initSVRFallback);
     }
   `;
 

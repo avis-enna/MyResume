@@ -23,6 +23,7 @@ export default function Navigation() {
             <a href="#contact" className={`text-xs font-light tracking-[0.15em] uppercase transition-colors duration-300 ${isDarkMode ? 'text-gray-400 hover:text-white border-b border-transparent hover:border-white' : 'text-stone-600 hover:text-stone-800 border-b border-transparent hover:border-stone-700'}`}>contact</a>
             <button
               type="button"
+              data-resume-button="true"
               onClick={async () => {
                 try {
                   console.log('Resume button clicked - Version 2.0');
@@ -103,6 +104,7 @@ export default function Navigation() {
               <a href="#contact" className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>contact</a>
               <button
                 type="button"
+                data-resume-button="true"
                 onClick={async () => {
                   try {
                     const currentOrigin = window.location.origin;
@@ -163,6 +165,68 @@ export default function Navigation() {
           </div>
         )}
       </div>
+
+      {/* Resume button fallback script */}
+      <script dangerouslySetInnerHTML={{ __html: `
+        console.log('Resume fallback script loaded - Universal version');
+
+        function handleResumeClickFallback(event) {
+          console.log('Resume fallback click triggered');
+          event.preventDefault();
+          event.stopPropagation();
+
+          const currentOrigin = window.location.origin;
+
+          try {
+            console.log('Attempting to open admin portal for resume');
+            const adminUrl = currentOrigin + '/admin/login';
+            const newWindow = window.open(adminUrl, '_blank');
+
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+              console.log('Popup blocked, trying direct download');
+              window.open(currentOrigin + '/api/resume/download?format=html', '_blank');
+            } else {
+              console.log('Admin portal opened for resume access');
+            }
+          } catch (error) {
+            console.error('Resume fallback error:', error);
+            try {
+              window.open(currentOrigin + '/api/resume/download?format=html', '_blank');
+            } catch (downloadError) {
+              console.error('Resume download failed:', downloadError);
+              alert('Unable to access resume. Please try refreshing the page.');
+            }
+          }
+        }
+
+        function initResumeFallback() {
+          console.log('Initializing resume fallback handlers');
+          const resumeButtons = document.querySelectorAll('[data-resume-button], button[data-resume-button]');
+
+          resumeButtons.forEach((button, index) => {
+            console.log('Found resume button', index + 1, '- attaching fallback handler');
+
+            button.removeEventListener('click', handleResumeClickFallback);
+            button.addEventListener('click', handleResumeClickFallback, true);
+            button.onclick = handleResumeClickFallback;
+          });
+
+          console.log('Resume fallback initialization complete -', resumeButtons.length, 'buttons found');
+        }
+
+        // Universal initialization
+        initResumeFallback();
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initResumeFallback);
+        }
+        setTimeout(initResumeFallback, 100);
+        setTimeout(initResumeFallback, 500);
+        setTimeout(initResumeFallback, 1000);
+        setTimeout(initResumeFallback, 2000);
+        if (typeof window !== 'undefined') {
+          window.addEventListener('load', initResumeFallback);
+        }
+      ` }} />
     </nav>
   );
 }
