@@ -1,8 +1,26 @@
 {
-  "name": "portfolio-website",
+  "name": "portfolio-website-chatbot",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "functions": {
+    "app/api/chat/route.ts": {
+      "maxDuration": 15
+    },
+    "app/api/add/route.ts": {
+      "maxDuration": 15
+    },
+    "app/api/health/route.ts": {
+      "maxDuration": 10
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "regions": ["iad1"],
+  "github": {
+    "autoAlias": true
+  }
 }
