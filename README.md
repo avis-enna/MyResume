@@ -78,7 +78,7 @@ Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 - Update contact details in `app/components/Contact.tsx`
 
 ## 📞 Contact
-- **Email**: [your.email@example.com](mailto:your.email@example.com)
+- **Email**: [your.email@example.com](mailto:vsivareddy.venna@gmail.com)
 - **LinkedIn**: [linkedin.com/in/sivavenna](https://linkedin.com/in/sivavenna)
 - **GitHub**: [github.com/sivavenna](https://github.com/sivavenna)
 
