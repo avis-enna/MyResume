@@ -134,11 +134,11 @@ export default function RootLayout({
         />
       </head>
       <body className="overflow-x-hidden">
-        <SecurityProvider>
+        {/* <SecurityProvider> */}
           {children}
-          <PerformanceMonitor />
-          <SecurityMonitor />
-        </SecurityProvider>
+          {/* <PerformanceMonitor /> */}
+          {/* <SecurityMonitor /> */}
+        {/* </SecurityProvider> */}
       </body>
     </html>
   )
